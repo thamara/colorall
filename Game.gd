@@ -38,6 +38,7 @@ func _process(_delta):
 
 func _on_Timer_timeout():
 	grid.stop_game()	
+	show_go_timer.start()
 
 
 func _on_ColorSelection_color_clicked():

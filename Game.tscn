@@ -42,10 +42,10 @@ __meta__ = {
 }
 
 [node name="TimerLabel" type="Label" parent="HUD"]
-margin_left = 72.0
-margin_top = 344.0
-margin_right = 215.0
-margin_bottom = 404.0
+margin_left = 64.0
+margin_top = 440.0
+margin_right = 207.0
+margin_bottom = 500.0
 theme = ExtResource( 5 )
 text = "01:00.0"
 align = 1
@@ -55,9 +55,9 @@ __meta__ = {
 
 [node name="Score" type="Label" parent="HUD"]
 margin_left = 64.0
-margin_top = 168.0
+margin_top = 240.0
 margin_right = 207.0
-margin_bottom = 228.0
+margin_bottom = 300.0
 theme = ExtResource( 5 )
 text = "Score"
 align = 1
@@ -67,9 +67,9 @@ __meta__ = {
 
 [node name="ScoreLabel" type="Label" parent="HUD"]
 margin_left = 64.0
-margin_top = 240.0
+margin_top = 312.0
 margin_right = 207.0
-margin_bottom = 300.0
+margin_bottom = 372.0
 theme = ExtResource( 5 )
 text = "000"
 align = 1
@@ -78,7 +78,7 @@ __meta__ = {
 }
 
 [node name="StartBtn" type="Node2D" parent="HUD"]
-position = Vector2( 136, 88 )
+position = Vector2( 136, 160 )
 
 [node name="GreenCircleButton" type="Sprite" parent="HUD/StartBtn"]
 scale = Vector2( 0.65, 0.65 )
@@ -104,7 +104,7 @@ __meta__ = {
 shape = SubResource( 2 )
 
 [node name="ColorSelection" parent="." instance=ExtResource( 2 )]
-position = Vector2( 136, 88 )
+position = Vector2( 136, 160 )
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
@@ -114,8 +114,9 @@ __meta__ = {
 
 [node name="Grid" parent="." instance=ExtResource( 4 )]
 position = Vector2( 320, 64 )
-width = 10
-height = 10
+scale = Vector2( 1.5, 1.5 )
+width = 12
+height = 9
 
 [node name="ShowGoTimer" type="Timer" parent="."]
 wait_time = 2.0
