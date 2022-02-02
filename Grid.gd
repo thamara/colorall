@@ -1,38 +1,27 @@
 extends Node2D
 
-enum State { Wait, Ready }
-
-export (int) var time = 60
-export (int) var width = 10
-export (int) var height = 10
-export (int) var offset_w = 5
-export (int) var offset_h = 2
+export (int) var width = 0
+export (int) var height = 0
+export (int) var offset_w = 0
+export (int) var offset_h = 0
 
 var all_pieces = []
 var pieces_to_color = []
-var state = State.Ready
-var score = 0
 
 onready var map = $TileMap
 onready var right_music = $Right
-onready var score_value = $UI/ScoreValue
-onready var game_over = $UI/GameOver
+
+signal game_over
 
 
 func place_pieces():
 	for i in width:
 		for j in height:
 			create_piece_at(i, j)
-	state = State.Ready
-	$GameTimer.start()
+	GameManager.state = GameManager.State.Ready
 
 
 func initialize_game():
-	$UI/TimerBar.value = time
-	$UI/TimerBar.max_value = time
-	$GameTimer.wait_time = time
-	score_value.text = str(score)
-
 	for i in len(all_pieces):
 		for j in len(all_pieces[i]):
 			if all_pieces[i][j]:
@@ -43,8 +32,9 @@ func initialize_game():
 
 func _ready():
 #	randomize()
-	initialize_game()
-	place_pieces()
+#	initialize_game()
+#	place_pieces()
+	map.visible = false
 
 
 func make_2d_array(w, h):
@@ -142,10 +132,10 @@ func world_to_grid(pos):
 
 
 func run_game():
-	if state == State.Wait:
+	if GameManager.state == GameManager.State.Wait:
 		return
 
-	state = State.Wait
+	GameManager.state = GameManager.State.Wait
 	find_matches(Vector2(0, 0))
 	for piece in pieces_to_color:
 		piece.set_color(GameManager.EnumToName[GameManager.color_selected])
@@ -153,66 +143,21 @@ func run_game():
 	
 	# Update Score
 	find_matches(Vector2(0, 0))
-	score = len(pieces_to_color)
-	score_value.text = str(score)
+	var score = len(pieces_to_color)
+	GameManager.score = score
 	pieces_to_color = []
+	
+	if score == width * height:
+		emit_signal("game_over")
 
-	state = State.Ready
-
-
-func _process(_delta):
-	if !$GameTimer.paused:
-		$UI/TimerBar.value = $GameTimer.time_left
+	GameManager.state = GameManager.State.Ready
 
 
-func _on_NewGame_pressed():
+func new_game():
 	initialize_game()
 	place_pieces()
 
 
-func _on_GameTimer_timeout():
-	# game over
-	state = State.Wait
-	game_over.visible = true
-	
-
-
-func _on_Black_pressed():
-	GameManager.color_selected = GameManager.Colors.Black
-	run_game()
-
-
-func _on_White_pressed():
-	GameManager.color_selected = GameManager.Colors.White
-	run_game()
-
-
-func _on_Red_pressed():
-	GameManager.color_selected = GameManager.Colors.Red
-	run_game()
-
-
-func _on_Yellow_pressed():
-	GameManager.color_selected = GameManager.Colors.Yellow
-	run_game()
-
-
-func _on_Blue_pressed():
-	GameManager.color_selected = GameManager.Colors.Blue
-	run_game()
-
-
-func _on_Purple_pressed():
-	GameManager.color_selected = GameManager.Colors.Purple
-	run_game()
-
-
-func _on_Green_pressed():
-	GameManager.color_selected = GameManager.Colors.Green
-	run_game()
-
-
-func _on_Orange_pressed():
-	GameManager.color_selected = GameManager.Colors.Orange
-	run_game()
+func stop_game():
+	GameManager.state = GameManager.State.Wait
 

@@ -1,22 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://ColorSelectionCircle.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/bg.png" type="Texture" id=3]
-[ext_resource path="res://Line2D.gd" type="Script" id=4]
-
-[sub_resource type="Gradient" id=1]
-offsets = PoolRealArray( 0, 0.352332, 0.647668, 1 )
-colors = PoolColorArray( 0.472956, 0.226456, 0.597656, 1, 1, 1, 1, 1, 0.526295, 0.122696, 0.730469, 1, 1, 1, 1, 1 )
-
-[sub_resource type="Gradient" id=3]
-offsets = PoolRealArray( 0, 0.232804, 0.544974, 0.772487, 1 )
-colors = PoolColorArray( 0.622653, 0.184555, 0.800781, 1, 0.374394, 0.547988, 0.84716, 1, 0.742863, 0.90935, 0.628951, 1, 0.8125, 0.650436, 0.266602, 1, 0.875, 0.170898, 0.698975, 1 )
-
-[sub_resource type="Curve2D" id=2]
-_data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 168, 216, 0, 0, 0, 0, 168, 64, 0, 0, 0, 0, 384, 64 )
-}
+[ext_resource path="res://Grid.tscn" type="PackedScene" id=4]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
@@ -73,15 +60,12 @@ __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="Line2D" type="Line2D" parent="."]
-width = 20.0
-default_color = Color( 0.4, 0.501961, 1, 1 )
-gradient = SubResource( 1 )
-script = ExtResource( 4 )
-grad = SubResource( 3 )
-
-[node name="Path2D" type="Path2D" parent="Line2D"]
-curve = SubResource( 2 )
+[node name="Grid" parent="." instance=ExtResource( 4 )]
+position = Vector2( 320, 64 )
+width = 10
+height = 10
 
 [connection signal="pressed" from="HUD/StartBtn" to="." method="_on_StartBtn_pressed"]
+[connection signal="color_clicked" from="ColorSelection" to="." method="_on_ColorSelection_color_clicked"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="game_over" from="Grid" to="." method="_on_Grid_game_over"]

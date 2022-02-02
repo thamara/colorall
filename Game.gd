@@ -6,6 +6,7 @@ onready var timer = $Timer
 onready var timer_bar = $HUD/TimerBar
 onready var timer_label = $HUD/TimerLabel
 onready var start_btn = $HUD/StartBtn
+onready var grid = $Grid
 
 func initialize_game():
 	timer_bar.value = time
@@ -34,15 +35,17 @@ func _process(_delta):
 
 
 func _on_StartBtn_pressed():
+	grid.new_game()	
 	timer.start()
 
 
 func _on_Timer_timeout():
-	print('Game ended')
-	pass # Replace with function body.
+	grid.stop_game()	
 
 
+func _on_ColorSelection_color_clicked():
+	grid.run_game()
 
-func _on_Area2D_input_event(viewport, event, shape_idx):
-	print('Game _on_Area2D_input_event')
-	pass # Replace with function body.
+
+func _on_Grid_game_over():
+	timer.stop()

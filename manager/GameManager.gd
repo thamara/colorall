@@ -1,8 +1,12 @@
 extends Node
 
 enum Colors { Black = 0, White, Red, Yellow, Blue, Purple, Green, Orange}
+enum State { Wait, Ready }
 
 var color_selected = Colors.Black
+var score = 0
+var state = State.Wait
+
 
 const EnumToName = {
 	Colors.Black: "Black",
