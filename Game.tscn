@@ -1,0 +1,87 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Game.gd" type="Script" id=1]
+[ext_resource path="res://ColorSelectionCircle.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/bg.png" type="Texture" id=3]
+[ext_resource path="res://Line2D.gd" type="Script" id=4]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.352332, 0.647668, 1 )
+colors = PoolColorArray( 0.472956, 0.226456, 0.597656, 1, 1, 1, 1, 1, 0.526295, 0.122696, 0.730469, 1, 1, 1, 1, 1 )
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.232804, 0.544974, 0.772487, 1 )
+colors = PoolColorArray( 0.622653, 0.184555, 0.800781, 1, 0.374394, 0.547988, 0.84716, 1, 0.742863, 0.90935, 0.628951, 1, 0.8125, 0.650436, 0.266602, 1, 0.875, 0.170898, 0.698975, 1 )
+
+[sub_resource type="Curve2D" id=2]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 168, 216, 0, 0, 0, 0, 168, 64, 0, 0, 0, 0, 384, 64 )
+}
+
+[node name="Game" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( 513.625, 303 )
+scale = Vector2( 10.0262, 6.52083 )
+texture = ExtResource( 3 )
+
+[node name="HUD" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TimerBar" type="ProgressBar" parent="HUD"]
+margin_left = 1.0
+margin_top = 599.0
+margin_right = 600.0
+margin_bottom = 627.0
+rect_rotation = -89.9999
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TimerLabel" type="Label" parent="HUD"]
+margin_left = 104.0
+margin_top = 408.0
+margin_right = 152.0
+margin_bottom = 422.0
+text = "01:00.0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartBtn" type="Button" parent="HUD"]
+margin_left = 104.0
+margin_top = 352.0
+margin_right = 145.0
+margin_bottom = 372.0
+text = "Start"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorSelection" parent="." instance=ExtResource( 2 )]
+position = Vector2( 168, 216 )
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Line2D" type="Line2D" parent="."]
+width = 20.0
+default_color = Color( 0.4, 0.501961, 1, 1 )
+gradient = SubResource( 1 )
+script = ExtResource( 4 )
+grad = SubResource( 3 )
+
+[node name="Path2D" type="Path2D" parent="Line2D"]
+curve = SubResource( 2 )
+
+[connection signal="pressed" from="HUD/StartBtn" to="." method="_on_StartBtn_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

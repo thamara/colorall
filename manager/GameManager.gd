@@ -1,6 +1,6 @@
 extends Node
 
-enum Colors { Black, White, Red, Yellow, Blue, Purple, Green, Orange}
+enum Colors { Black = 0, White, Red, Yellow, Blue, Purple, Green, Orange}
 
 var color_selected = Colors.Black
 
@@ -88,6 +88,25 @@ var order_it = 0
 signal counter_changed
 
 var order = null
+
+
+func number_to_color(n):
+	var n_to_c = {
+		0: Colors.Black,
+		1: Colors.White,
+		2: Colors.Red,
+		3: Colors.Yellow,
+		4: Colors.Blue,
+		5: Colors.Purple,
+		6: Colors.Green,
+		7: Colors.Orange,
+	}
+	return n_to_c[n]
+
+
+func set_color(n):
+	color_selected = number_to_color(n)
+
 
 func reset_cnt():
 	for color in cnt:
