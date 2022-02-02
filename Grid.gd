@@ -15,6 +15,7 @@ signal game_over
 
 
 func place_pieces():
+	set_bg()
 	for i in width:
 		for j in height:
 			create_piece_at(i, j)
@@ -30,11 +31,20 @@ func initialize_game():
 
 	all_pieces = make_2d_array(width, height)
 
+
+func set_bg():
+	for i in width:
+		for j in height:
+			map.set_cell(i, j, 0)
+
+
 func _ready():
+	map.set_cell(0, 0, -1)
 #	randomize()
 #	initialize_game()
 #	place_pieces()
-	map.visible = false
+#	set_bg()
+	pass
 
 
 func make_2d_array(w, h):
@@ -57,8 +67,7 @@ func create_piece_at(i, j):
 	var rand_tile = GameManager.tiles[floor(rand_range(0, len(GameManager.tiles)))]
 	var new_tile = rand_tile[1].instance()
 	add_child(new_tile)
-	new_tile.position = grid_to_world(i, -1)
-	new_tile.move(grid_to_world(i, j))
+	new_tile.position = grid_to_world(i, j)
 	all_pieces[i][j] = new_tile
 
 

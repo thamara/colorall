@@ -15,15 +15,14 @@ const colorStrToRegion = {
 
 onready var sprite = $Sprite
 onready var moving_tween = $MovingTween
-onready var shake_tween = $ShakeTween
+onready var tween = $Tween
 
-const amplitude = 10
-
-var tween_started = false
 var matched = false
 
 func _ready():
 	set_color(color_name)
+	tween.interpolate_property($Sprite, "scale", Vector2(0.2, 0.2), Vector2(0.5, 0.5), 0.3)
+	tween.start()
 
 
 func set_color(color):

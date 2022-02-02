@@ -13,3 +13,5 @@ region_enabled = true
 region_rect = Rect2( 128, 64, 64, 64 )
 
 [node name="MovingTween" type="Tween" parent="."]
+
+[node name="Tween" type="Tween" parent="."]
