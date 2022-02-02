@@ -3,6 +3,7 @@ extends Node2D
 export (int) var time = 60
 
 onready var timer = $Timer
+onready var show_go_timer = $ShowGoTimer
 onready var timer_bar = $HUD/TimerBar
 onready var timer_label = $HUD/TimerLabel
 onready var score_label = $HUD/ScoreLabel
@@ -35,11 +36,6 @@ func _process(_delta):
 		timer_label.text = _get_time_str(time_left)
 
 
-func _on_StartBtn_pressed():
-	grid.new_game()	
-	timer.start()
-
-
 func _on_Timer_timeout():
 	grid.stop_game()	
 
@@ -51,3 +47,15 @@ func _on_ColorSelection_color_clicked():
 
 func _on_Grid_game_over():
 	timer.stop()
+	show_go_timer.start()
+
+
+func _on_Area2D_input_event(viewport, event, shape_idx):
+	if (event is InputEventMouseButton && event.pressed):
+		start_btn.visible = false
+		grid.new_game()	
+		timer.start()
+
+
+func _on_ShowGoTimer_timeout():
+	start_btn.visible = true

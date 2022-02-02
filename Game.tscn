@@ -1,10 +1,19 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://ColorSelectionCircle.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/bg.png" type="Texture" id=3]
 [ext_resource path="res://Grid.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Game.tres" type="Theme" id=5]
+[ext_resource path="res://assets/green_circle_button.png" type="Texture" id=6]
+[ext_resource path="res://assets/SupermercadoOne-Regular.ttf" type="DynamicFontData" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+font_data = ExtResource( 7 )
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 32.0
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
@@ -33,10 +42,10 @@ __meta__ = {
 }
 
 [node name="TimerLabel" type="Label" parent="HUD"]
-margin_left = 56.0
-margin_top = 320.0
-margin_right = 199.0
-margin_bottom = 380.0
+margin_left = 72.0
+margin_top = 344.0
+margin_right = 215.0
+margin_bottom = 404.0
 theme = ExtResource( 5 )
 text = "01:00.0"
 align = 1
@@ -58,9 +67,9 @@ __meta__ = {
 
 [node name="ScoreLabel" type="Label" parent="HUD"]
 margin_left = 64.0
-margin_top = 232.0
+margin_top = 240.0
 margin_right = 207.0
-margin_bottom = 292.0
+margin_bottom = 300.0
 theme = ExtResource( 5 )
 text = "000"
 align = 1
@@ -68,16 +77,31 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StartBtn" type="Button" parent="HUD"]
-margin_left = 88.0
-margin_top = 536.0
-margin_right = 171.0
-margin_bottom = 582.0
+[node name="StartBtn" type="Node2D" parent="HUD"]
+position = Vector2( 136, 88 )
+
+[node name="GreenCircleButton" type="Sprite" parent="HUD/StartBtn"]
+scale = Vector2( 0.65, 0.65 )
+texture = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="HUD/StartBtn"]
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 31.0
+margin_bottom = 28.0
 theme = ExtResource( 5 )
-text = "Start"
+custom_fonts/font = SubResource( 1 )
+text = "Go!"
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Area2D" type="Area2D" parent="HUD/StartBtn"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/StartBtn/Area2D"]
+shape = SubResource( 2 )
 
 [node name="ColorSelection" parent="." instance=ExtResource( 2 )]
 position = Vector2( 136, 88 )
@@ -93,7 +117,12 @@ position = Vector2( 320, 64 )
 width = 10
 height = 10
 
-[connection signal="pressed" from="HUD/StartBtn" to="." method="_on_StartBtn_pressed"]
+[node name="ShowGoTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="input_event" from="HUD/StartBtn/Area2D" to="." method="_on_Area2D_input_event"]
 [connection signal="color_clicked" from="ColorSelection" to="." method="_on_ColorSelection_color_clicked"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="game_over" from="Grid" to="." method="_on_Grid_game_over"]
+[connection signal="timeout" from="ShowGoTimer" to="." method="_on_ShowGoTimer_timeout"]
