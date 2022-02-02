@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://ColorSelectionCircle.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/bg.png" type="Texture" id=3]
 [ext_resource path="res://Grid.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Game.tres" type="Theme" id=5]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
@@ -32,27 +33,54 @@ __meta__ = {
 }
 
 [node name="TimerLabel" type="Label" parent="HUD"]
-margin_left = 104.0
-margin_top = 408.0
-margin_right = 152.0
-margin_bottom = 422.0
+margin_left = 56.0
+margin_top = 320.0
+margin_right = 199.0
+margin_bottom = 380.0
+theme = ExtResource( 5 )
 text = "01:00.0"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="Label" parent="HUD"]
+margin_left = 64.0
+margin_top = 168.0
+margin_right = 207.0
+margin_bottom = 228.0
+theme = ExtResource( 5 )
+text = "Score"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreLabel" type="Label" parent="HUD"]
+margin_left = 64.0
+margin_top = 232.0
+margin_right = 207.0
+margin_bottom = 292.0
+theme = ExtResource( 5 )
+text = "000"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="StartBtn" type="Button" parent="HUD"]
-margin_left = 104.0
-margin_top = 352.0
-margin_right = 145.0
-margin_bottom = 372.0
+margin_left = 88.0
+margin_top = 536.0
+margin_right = 171.0
+margin_bottom = 582.0
+theme = ExtResource( 5 )
 text = "Start"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ColorSelection" parent="." instance=ExtResource( 2 )]
-position = Vector2( 168, 216 )
+position = Vector2( 136, 88 )
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

@@ -5,6 +5,7 @@ export (int) var time = 60
 onready var timer = $Timer
 onready var timer_bar = $HUD/TimerBar
 onready var timer_label = $HUD/TimerLabel
+onready var score_label = $HUD/ScoreLabel
 onready var start_btn = $HUD/StartBtn
 onready var grid = $Grid
 
@@ -45,6 +46,7 @@ func _on_Timer_timeout():
 
 func _on_ColorSelection_color_clicked():
 	grid.run_game()
+	score_label.text = str(GameManager.score)
 
 
 func _on_Grid_game_over():
