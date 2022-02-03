@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/bg.png" type="Texture" id=1]
 [ext_resource path="res://Game.tres" type="Theme" id=2]
@@ -7,16 +7,27 @@
 [ext_resource path="res://Menu.gd" type="Script" id=5]
 [ext_resource path="res://ColorSelectionCircle.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Mouse.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/Chad Crouch - Algorithms.mp3" type="AudioStream" id=8]
+[ext_resource path="res://assets/green_circle_button.png" type="Texture" id=9]
 
 [sub_resource type="DynamicFont" id=1]
 size = 150
 font_data = ExtResource( 3 )
 
+[sub_resource type="DynamicFont" id=2]
+size = 32
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 45
+font_data = ExtResource( 3 )
+
 [node name="Menu" type="Node2D"]
+position = Vector2( 0, 33 )
 script = ExtResource( 5 )
 
 [node name="Background" type="Sprite" parent="."]
-position = Vector2( 513.625, 303 )
+position = Vector2( 522, 273 )
 scale = Vector2( 10.0262, 6.52083 )
 texture = ExtResource( 1 )
 
@@ -32,24 +43,42 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 36.0
 margin_right = 1035.0
-margin_bottom = 363.0
+margin_bottom = 180.0
 theme = ExtResource( 2 )
-custom_colors/font_color = Color( 0.647059, 0.290196, 0.733333, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_constants/shadow_offset_x = 1
 custom_constants/shadow_offset_y = 1
 custom_constants/shadow_as_outline = 0
 custom_fonts/font = SubResource( 1 )
-text = "Less colors,
-please"
+text = "Col    rall"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Control"]
+margin_left = 186.0
+margin_top = 247.0
+margin_right = 564.0
+margin_bottom = 373.0
+theme = ExtResource( 2 )
+custom_fonts/font = SubResource( 2 )
+text = "Absorb the neighborhood
+colors selecting a color
+to paint your starting blob."
+align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="TileMap" type="TileMap" parent="."]
-position = Vector2( 600, 312 )
+position = Vector2( 636, 254 )
 scale = Vector2( 1.5, 1.5 )
 cell_size = Vector2( 36, 36 )
 format = 1
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Tile10" parent="TileMap" instance=ExtResource( 4 )]
 position = Vector2( 0, 36 )
@@ -104,16 +133,46 @@ visible_bg = true
 one_shot = true
 
 [node name="ColorSelection" parent="." instance=ExtResource( 6 )]
-position = Vector2( 900, 270 )
+position = Vector2( 522, 90 )
 
 [node name="Mouse" parent="." instance=ExtResource( 7 )]
-position = Vector2( 1044, 252 )
+position = Vector2( 1034, 126 )
 
 [node name="Tween" type="Tween" parent="."]
 
 [node name="AnimationSetup" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 2.0
 one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+autoplay = true
+bus = "Music"
+
+[node name="TextureButton" type="TextureButton" parent="."]
+margin_left = 440.0
+margin_top = 417.0
+margin_right = 530.0
+margin_bottom = 507.0
+rect_scale = Vector2( 1.5, 1.5 )
+texture_normal = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 461.0
+margin_top = 456.0
+margin_right = 557.0
+margin_bottom = 511.0
+theme = ExtResource( 2 )
+custom_fonts/font = SubResource( 3 )
+text = "Play!"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="timeout" from="Animation1" to="." method="_on_Animation1_timeout"]
 [connection signal="timeout" from="AnimationSetup" to="." method="_on_AnimationSetup_timeout"]
+[connection signal="pressed" from="TextureButton" to="." method="_on_TextureButton_pressed"]

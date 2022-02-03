@@ -89,3 +89,7 @@ func _on_ShowGoTimer_timeout():
 
 func _on_ClickTimer_timeout():
 	GameManager.state = GameManager.State.Ready
+
+
+func _on_BackBtn_pressed():
+	get_tree().change_scene("res://Menu.tscn")

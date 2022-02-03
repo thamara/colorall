@@ -44,7 +44,7 @@ func _ready():
 	map.set_cell(0, 0, -1)
 	GameManager.score = 1
 	GameManager.click_count = 0
-#	randomize()
+	randomize()
 #	initialize_game()
 #	place_pieces()
 #	set_bg()

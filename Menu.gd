@@ -38,7 +38,7 @@ func _ready():
 func _on_Animation1_timeout():
 	print(' animation 1 timeout')
 	
-	$Tween.interpolate_property($Mouse, "position", $Mouse.position, Vector2(924, 234), 0.2)
+	$Tween.interpolate_property($Mouse, "position", $Mouse.position, Vector2(864, 108), 0.2)
 	$Tween.start()
 	
 	_create_timer()
@@ -80,7 +80,7 @@ func _on_Animation1_timeout():
 	_create_timer()
 	yield(self,"timer_end")
 	
-	$Tween.interpolate_property($Mouse, "position", $Mouse.position, Vector2(936, 324), 0.2)
+	$Tween.interpolate_property($Mouse, "position", $Mouse.position, Vector2(864, 198), 0.2)
 	$Tween.start()
 	
 	_create_timer()
@@ -138,7 +138,7 @@ func _on_Animation1_timeout():
 	_create_timer()
 	yield(self,"timer_end")
 	
-	$Tween.interpolate_property($Mouse, "position", $Mouse.position, Vector2(1062, 324), 0.2)
+	$Tween.interpolate_property($Mouse, "position", $Mouse.position, Vector2(1044, 144), 0.2)
 	$Tween.start()
 	
 	$AnimationSetup.start()
@@ -180,3 +180,7 @@ func _on_AnimationSetup_timeout():
 	tile6.show_glow()
 	
 	$Animation1.start()
+
+
+func _on_TextureButton_pressed():
+	get_tree().change_scene("res://Game.tscn")

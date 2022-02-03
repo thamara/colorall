@@ -292,6 +292,31 @@ shape = SubResource( 2 )
 [node name="ColorSelection" parent="HUD" instance=ExtResource( 2 )]
 position = Vector2( 157, 102 )
 
+[node name="BackBtn" type="TextureButton" parent="HUD"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 98.0
+margin_bottom = 98.0
+rect_scale = Vector2( 0.3, 0.3 )
+texture_normal = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Back" type="Label" parent="HUD"]
+margin_left = -10.0
+margin_top = -9.0
+margin_right = 53.0
+margin_bottom = 51.0
+theme = ExtResource( 5 )
+custom_fonts/font = SubResource( 1 )
+text = "<"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 __meta__ = {
@@ -326,6 +351,7 @@ bus = "Effects"
 
 [connection signal="input_event" from="HUD/StartBtn/Area2D" to="." method="_on_Area2D_input_event"]
 [connection signal="color_clicked" from="HUD/ColorSelection" to="." method="_on_ColorSelection_color_clicked"]
+[connection signal="pressed" from="HUD/BackBtn" to="." method="_on_BackBtn_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="game_over" from="Grid" to="." method="_on_Grid_game_over"]
 [connection signal="timeout" from="ShowGoTimer" to="." method="_on_ShowGoTimer_timeout"]
