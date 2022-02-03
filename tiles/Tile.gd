@@ -1,6 +1,8 @@
 extends Node2D
 
 export (String, "Black", "White", "Red", "Yellow", "Blue", "Purple", "Green", "Orange") var color_name = "Black"
+export (bool) var visible_bg = false
+
 
 const colorStrToRegion = {
 	"Black": Rect2(0, 0, 64, 64),
@@ -23,6 +25,8 @@ func _ready():
 	set_color(color_name)
 	tween.interpolate_property($Sprite, "scale", Vector2(0.2, 0.2), Vector2(0.5, 0.5), 0.3)
 	tween.start()
+	if visible_bg:
+		show_glow()
 
 
 func set_color(color):
@@ -31,6 +35,10 @@ func set_color(color):
 		sprite.region_rect = colorStrToRegion[color_name]
 	else:
 		print('error on color: ', color_name)
+
+
+func show_glow():
+	$ColorRect.visible = true
 
 
 func move(new_pos):

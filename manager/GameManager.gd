@@ -5,6 +5,7 @@ enum State { Wait, Ready }
 
 var color_selected = Colors.Black
 var score = 0
+var click_count = 0
 var state = State.Wait
 
 

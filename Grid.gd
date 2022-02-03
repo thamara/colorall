@@ -28,7 +28,9 @@ func initialize_game():
 			if all_pieces[i][j]:
 				all_pieces[i][j].queue_free()
 				all_pieces[i][j] = null
-
+	
+	GameManager.score = 1
+	GameManager.click_count = 0
 	all_pieces = make_2d_array(width, height)
 
 
@@ -40,6 +42,8 @@ func set_bg():
 
 func _ready():
 	map.set_cell(0, 0, -1)
+	GameManager.score = 1
+	GameManager.click_count = 0
 #	randomize()
 #	initialize_game()
 #	place_pieces()
@@ -66,6 +70,8 @@ func create_piece_at(i, j):
 		return
 	var rand_tile = GameManager.tiles[floor(rand_range(0, len(GameManager.tiles)))]
 	var new_tile = rand_tile[1].instance()
+	if i == 0 && j == 0:
+		new_tile.show_glow()
 	add_child(new_tile)
 	new_tile.position = grid_to_world(i, j)
 	all_pieces[i][j] = new_tile
@@ -89,6 +95,8 @@ func find_matches(pos):
 		return false
 	
 	pieces_to_color.append(current_piece)
+	right_music.play()
+	current_piece.show_glow()
 
 	# look horizontally
 	for i in range(x, width):
@@ -97,7 +105,6 @@ func find_matches(pos):
 			find_matches(Vector2(i, y))
 			if !pieces_to_color.count(piece):
 				pieces_to_color.append(piece)	
-				right_music.play()
 		else:
 			break
 	for i in range(x, -1, -1):
@@ -140,11 +147,7 @@ func world_to_grid(pos):
 	return map.world_to_map(pos) - Vector2(offset_w, offset_h)
 
 
-func run_game():
-	if GameManager.state == GameManager.State.Wait:
-		return
-
-	GameManager.state = GameManager.State.Wait
+func match_and_color():
 	find_matches(Vector2(0, 0))
 	for piece in pieces_to_color:
 		piece.set_color(GameManager.EnumToName[GameManager.color_selected])
@@ -155,16 +158,19 @@ func run_game():
 	var score = len(pieces_to_color)
 	GameManager.score = score
 	pieces_to_color = []
-	
-	if score == width * height:
-		emit_signal("game_over")
 
-	GameManager.state = GameManager.State.Ready
+func run_game():
+	if GameManager.state == GameManager.State.Wait:
+		return
+	GameManager.state = GameManager.State.Wait
+	match_and_color()
+	GameManager.click_count += 1
 
 
 func new_game():
 	initialize_game()
 	place_pieces()
+	match_and_color()
 
 
 func stop_game():

@@ -1,13 +1,21 @@
 extends Node2D
 
+# Algorithms by Chad Crouch
+# Space by Chad Crouch
+
 export (int) var time = 60
+export (int) var level = 1
 
 onready var timer = $Timer
 onready var show_go_timer = $ShowGoTimer
+onready var click_timer = $ClickTimer
 onready var timer_bar = $HUD/TimerBar
 onready var timer_label = $HUD/TimerLabel
 onready var score_label = $HUD/ScoreLabel
+onready var penalty_label = $HUD/PenaltyLabel
+onready var final_score = $HUD/FinalScore
 onready var start_btn = $HUD/StartBtn
+onready var click_progress_bar = $HUD/ClickProgressBar
 onready var grid = $Grid
 
 func initialize_game():
@@ -29,11 +37,16 @@ func _get_time_str(time_in_secs):
 	return "%02d:%02d.%1d" % [mins, secs, mils]
 
 
+func update_score():
+	var time_left = timer.time_left
+	timer_bar.value = time_left
+	timer_label.text = _get_time_str(time_left)
+	final_score.text = str(floor((GameManager.score - GameManager.click_count) * max(time_left, 1)))
+
+
 func _process(_delta):
 	if !timer.is_stopped():
-		var time_left = timer.time_left
-		timer_bar.value = time_left
-		timer_label.text = _get_time_str(time_left)
+		update_score()
 
 
 func _on_Timer_timeout():
@@ -42,21 +55,37 @@ func _on_Timer_timeout():
 
 
 func _on_ColorSelection_color_clicked():
-	grid.run_game()
-	score_label.text = str(GameManager.score)
+	if !timer.is_stopped():
+		grid.run_game()
+		score_label.text = str(GameManager.score)
+		penalty_label.text = str(GameManager.click_count)
+		if click_timer.is_stopped():
+			click_timer.start()
+			$Tween.interpolate_property(click_progress_bar, "value", 0, 100, 1)
+			$Tween.start()
 
 
 func _on_Grid_game_over():
 	timer.stop()
 	show_go_timer.start()
+	$ProgressBarColor.stop_all()
 
 
 func _on_Area2D_input_event(viewport, event, shape_idx):
 	if (event is InputEventMouseButton && event.pressed):
 		start_btn.visible = false
-		grid.new_game()	
+		$Select.play()
+		grid.new_game()
 		timer.start()
+		$ProgressBarColor.interpolate_property(timer_bar, "modulate", Color("#6dcb93"), Color("#f03c37"), 60)
+		$ProgressBarColor.start()
+		score_label.text = str(GameManager.score)
+		penalty_label.text = str(GameManager.click_count)
 
 
 func _on_ShowGoTimer_timeout():
 	start_btn.visible = true
+
+
+func _on_ClickTimer_timeout():
+	GameManager.state = GameManager.State.Ready

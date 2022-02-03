@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://ColorSelectionCircle.tscn" type="PackedScene" id=2]
@@ -7,6 +7,31 @@
 [ext_resource path="res://Game.tres" type="Theme" id=5]
 [ext_resource path="res://assets/green_circle_button.png" type="Texture" id=6]
 [ext_resource path="res://assets/SupermercadoOne-Regular.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://assets/score_2.png" type="Texture" id=8]
+[ext_resource path="res://assets/score_1.png" type="Texture" id=9]
+[ext_resource path="res://assets/SpaceMono-Regular.ttf" type="DynamicFontData" id=10]
+[ext_resource path="res://assets/circle_white_outside.png" type="Texture" id=11]
+[ext_resource path="res://assets/Chad Crouch - Space.mp3" type="AudioStream" id=12]
+[ext_resource path="res://assets/select.ogg" type="AudioStream" id=13]
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 1, 1, 1, 0.403922 )
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0, 0, 0, 0.258824 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 80
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 42
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 30
+outline_size = 2
+font_data = ExtResource( 10 )
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -17,6 +42,9 @@ radius = 32.0
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_vertical_guides_": [ 320.0, 32.0 ]
+}
 
 [node name="Background" type="Sprite" parent="."]
 position = Vector2( 513.625, 303 )
@@ -30,22 +58,44 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ClickProgressBar" type="TextureProgress" parent="HUD"]
+show_behind_parent = true
+light_mask = 0
+margin_left = 80.0
+margin_top = 24.0
+margin_right = 389.0
+margin_bottom = 333.0
+rect_scale = Vector2( 0.5, 0.5 )
+mouse_filter = 2
+input_pass_on_modal_close_click = false
+rounded = true
+texture_under = ExtResource( 11 )
+texture_progress = ExtResource( 11 )
+fill_mode = 4
+tint_under = Color( 0, 0, 0, 0.278431 )
+tint_progress = Color( 1, 1, 1, 0.305882 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="TimerBar" type="ProgressBar" parent="HUD"]
-margin_left = 1.0
-margin_top = 599.0
-margin_right = 600.0
-margin_bottom = 627.0
-rect_rotation = -89.9999
+margin_left = 320.0
+margin_top = 24.0
+margin_right = 968.0
+margin_bottom = 52.0
+custom_styles/fg = SubResource( 6 )
+custom_styles/bg = SubResource( 7 )
+value = 10.0
 percent_visible = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="TimerLabel" type="Label" parent="HUD"]
-margin_left = 64.0
-margin_top = 440.0
-margin_right = 207.0
-margin_bottom = 500.0
+margin_left = 77.0
+margin_top = 328.0
+margin_right = 220.0
+margin_bottom = 388.0
 theme = ExtResource( 5 )
 text = "01:00.0"
 align = 1
@@ -53,11 +103,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="FinalScore" type="Label" parent="HUD"]
+margin_left = 85.0
+margin_top = 414.0
+margin_right = 228.0
+margin_bottom = 547.0
+theme = ExtResource( 5 )
+custom_colors/font_color = Color( 0.278431, 0.537255, 0.478431, 1 )
+custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+custom_constants/shadow_as_outline = 0
+custom_fonts/font = SubResource( 3 )
+text = "0"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Score" type="Label" parent="HUD"]
-margin_left = 64.0
-margin_top = 240.0
-margin_right = 207.0
-margin_bottom = 300.0
+margin_left = 85.0
+margin_top = 502.0
+margin_right = 228.0
+margin_bottom = 562.0
 theme = ExtResource( 5 )
 text = "Score"
 align = 1
@@ -66,19 +134,137 @@ __meta__ = {
 }
 
 [node name="ScoreLabel" type="Label" parent="HUD"]
-margin_left = 64.0
-margin_top = 312.0
-margin_right = 207.0
-margin_bottom = 372.0
+margin_left = 37.0
+margin_top = 251.0
+margin_right = 133.0
+margin_bottom = 311.0
 theme = ExtResource( 5 )
-text = "000"
+custom_fonts/font = SubResource( 4 )
+text = "1"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Minus" type="Label" parent="HUD"]
+margin_left = 103.0
+margin_top = 253.0
+margin_right = 199.0
+margin_bottom = 313.0
+theme = ExtResource( 5 )
+text = "-"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Minus3" type="Label" parent="HUD"]
+margin_left = 203.0
+margin_top = 321.0
+margin_right = 299.0
+margin_bottom = 381.0
+theme = ExtResource( 5 )
+text = "-"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Minus7" type="Label" parent="HUD"]
+margin_left = 203.0
+margin_top = 329.0
+margin_right = 299.0
+margin_bottom = 389.0
+theme = ExtResource( 5 )
+text = "-"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Minus2" type="Label" parent="HUD"]
+margin_left = 5.0
+margin_top = 334.0
+margin_right = 101.0
+margin_bottom = 394.0
+theme = ExtResource( 5 )
+custom_fonts/font = SubResource( 5 )
+text = "X"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Minus4" type="Label" parent="HUD"]
+margin_left = -16.0
+margin_top = 256.0
+margin_right = 80.0
+margin_bottom = 316.0
+theme = ExtResource( 5 )
+custom_fonts/font = SubResource( 5 )
+text = "("
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Minus6" type="Label" parent="HUD"]
+margin_left = -16.0
+margin_top = 256.0
+margin_right = 80.0
+margin_bottom = 316.0
+theme = ExtResource( 5 )
+custom_fonts/font = SubResource( 5 )
+text = "("
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Minus5" type="Label" parent="HUD"]
+margin_left = 221.0
+margin_top = 256.0
+margin_right = 317.0
+margin_bottom = 316.0
+theme = ExtResource( 5 )
+custom_fonts/font = SubResource( 5 )
+text = ")"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PenaltyLabel" type="Label" parent="HUD"]
+margin_left = 169.0
+margin_top = 251.0
+margin_right = 265.0
+margin_bottom = 311.0
+theme = ExtResource( 5 )
+custom_fonts/font = SubResource( 4 )
+text = "0"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreBoxes" type="Node2D" parent="HUD"]
+position = Vector2( 117, 118 )
+
+[node name="Score1" type="Sprite" parent="HUD/ScoreBoxes"]
+position = Vector2( -25, 143 )
+scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 9 )
+
+[node name="Score2" type="Sprite" parent="HUD/ScoreBoxes"]
+position = Vector2( 107, 143 )
+scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 8 )
+
 [node name="StartBtn" type="Node2D" parent="HUD"]
-position = Vector2( 136, 160 )
+position = Vector2( 157, 102 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="GreenCircleButton" type="Sprite" parent="HUD/StartBtn"]
 scale = Vector2( 0.65, 0.65 )
@@ -103,8 +289,8 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/StartBtn/Area2D"]
 shape = SubResource( 2 )
 
-[node name="ColorSelection" parent="." instance=ExtResource( 2 )]
-position = Vector2( 136, 160 )
+[node name="ColorSelection" parent="HUD" instance=ExtResource( 2 )]
+position = Vector2( 157, 102 )
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
@@ -122,8 +308,25 @@ height = 9
 wait_time = 2.0
 one_shot = true
 
+[node name="ClickTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="ProgressBarColor" type="Tween" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+autoplay = true
+bus = "Music"
+
+[node name="Select" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+bus = "Effects"
+
 [connection signal="input_event" from="HUD/StartBtn/Area2D" to="." method="_on_Area2D_input_event"]
-[connection signal="color_clicked" from="ColorSelection" to="." method="_on_ColorSelection_color_clicked"]
+[connection signal="color_clicked" from="HUD/ColorSelection" to="." method="_on_ColorSelection_color_clicked"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="game_over" from="Grid" to="." method="_on_Grid_game_over"]
 [connection signal="timeout" from="ShowGoTimer" to="." method="_on_ShowGoTimer_timeout"]
+[connection signal="timeout" from="ClickTimer" to="." method="_on_ClickTimer_timeout"]
