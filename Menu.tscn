@@ -102,7 +102,6 @@ visible_bg = true
 
 [node name="Animation1" type="Timer" parent="."]
 one_shot = true
-autostart = true
 
 [node name="ColorSelection" parent="." instance=ExtResource( 6 )]
 position = Vector2( 900, 270 )
@@ -113,7 +112,8 @@ position = Vector2( 1044, 252 )
 [node name="Tween" type="Tween" parent="."]
 
 [node name="AnimationSetup" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 3.0
+one_shot = true
 
 [connection signal="timeout" from="Animation1" to="." method="_on_Animation1_timeout"]
 [connection signal="timeout" from="AnimationSetup" to="." method="_on_AnimationSetup_timeout"]

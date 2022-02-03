@@ -40,6 +40,8 @@ func set_color(color):
 func show_glow():
 	$ColorRect.visible = true
 
+func hide_glow():
+	$ColorRect.visible = false	
 
 func move(new_pos):
 	moving_tween.interpolate_property(self, "position", position, new_pos, 0.2, Tween.TRANS_ELASTIC, Tween.EASE_OUT)
