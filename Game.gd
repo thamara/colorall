@@ -31,12 +31,6 @@ func initialize_game():
 
 
 func _ready():
-	var tween = Tween.new()
-	add_child(tween)
-	tween.interpolate_property($Background/Path2D/PathFollow2D, "unit_offset", 0, 1, 30)
-	tween.set_repeat(true)
-	tween.start()
-	
 	initialize_game()
 
 

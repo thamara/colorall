@@ -1,8 +1,8 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://ColorSelectionCircle.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/bg.png" type="Texture" id=3]
+[ext_resource path="res://Background.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Grid.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Game.tres" type="Theme" id=5]
 [ext_resource path="res://assets/green_circle_button.png" type="Texture" id=6]
@@ -13,12 +13,6 @@
 [ext_resource path="res://assets/circle_white_outside.png" type="Texture" id=11]
 [ext_resource path="res://assets/Chad Crouch - Space.mp3" type="AudioStream" id=12]
 [ext_resource path="res://assets/select.ogg" type="AudioStream" id=13]
-[ext_resource path="res://assets/bg_geometric.png" type="Texture" id=14]
-
-[sub_resource type="Curve2D" id=8]
-_data = {
-"points": PoolVector2Array( -33.75, 5.75, 33.75, -5.75, -208, -312, 31.25, -5.5, -31.25, 5.5, -160, -344, -16, -13.75, 16, 13.75, -120, -312, -14.5, -8.5, 14.5, 8.5, -72, -336, 59, 16.75, -59, -16.75, -88, -280, -17.5, -14.5, 17.5, 14.5, -184, -288, 11, 8, -11, -8, -160, -312, 13.5, 17.75, -13.5, -17.75, -216, -296, 20.25, 19.25, -20.25, -19.25, -248, -312, 36, 9, -36, -9, -232, -352, -26.75, -8.5, 26.75, 8.5, -208, -312 )
-}
 
 [sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 1, 1, 1, 0.403922 )
@@ -53,26 +47,7 @@ __meta__ = {
 }
 time = 20
 
-[node name="Background" type="Node2D" parent="."]
-
-[node name="DarkBg" type="Sprite" parent="Background"]
-position = Vector2( 513.625, 303 )
-scale = Vector2( 10.0262, 6.52083 )
-texture = ExtResource( 3 )
-
-[node name="Path2D" type="Path2D" parent="Background"]
-position = Vector2( 8, 0 )
-curve = SubResource( 8 )
-
-[node name="PathFollow2D" type="PathFollow2D" parent="Background/Path2D"]
-position = Vector2( -208, -312 )
-rotate = false
-
-[node name="BgGeometric" type="Sprite" parent="Background/Path2D/PathFollow2D"]
-modulate = Color( 1, 1, 1, 0.0627451 )
-position = Vector2( -16, 16 )
-texture = ExtResource( 14 )
-centered = false
+[node name="Background" parent="." instance=ExtResource( 3 )]
 
 [node name="Grid" parent="." instance=ExtResource( 4 )]
 position = Vector2( 320, 64 )
@@ -333,6 +308,7 @@ __meta__ = {
 }
 
 [node name="HighestScore" type="Control" parent="HUD"]
+visible = false
 margin_left = -15.0
 margin_top = 9.0
 margin_right = 25.0
