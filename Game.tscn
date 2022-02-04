@@ -134,10 +134,10 @@ __meta__ = {
 }
 
 [node name="TimerBar" type="ProgressBar" parent="HUD"]
-margin_left = 320.0
-margin_top = 56.0
+margin_left = 316.0
+margin_top = 53.0
 margin_right = 968.0
-margin_bottom = 68.0
+margin_bottom = 65.0
 custom_styles/fg = SubResource( 6 )
 custom_styles/bg = SubResource( 7 )
 value = 10.0
