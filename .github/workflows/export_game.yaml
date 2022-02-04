@@ -1,3 +1,4 @@
+name: 'Export Game'
 on:
   push:
     branches:
