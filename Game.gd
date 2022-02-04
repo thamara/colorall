@@ -88,7 +88,7 @@ func _on_ColorSelection_color_clicked():
 
 
 func process_game_over():
-	GameManager.save_highscore(grid_id, GameManager.final_score)
+	GameManager.save_highscore(grid_id, GameManager.final_score, GameManager.click_count)
 	final_score_win.text = str(GameManager.final_score)
 	highest_score_win.text = str(GameManager.get_highscore(grid_id))
 	final_score_box.visible = true

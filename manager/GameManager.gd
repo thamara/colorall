@@ -1,6 +1,6 @@
 extends Node
 
-const SAVE_FILE_PATH = "user://savedata.save"
+const SAVE_FILE_PATH = "user://savedata_v1.save"
 const AUDIO_FILE_PATH = "user://audio_level.save"
 
 enum Colors { Black = 0, White, Red, Yellow, Blue, Purple, Green, Orange}
@@ -103,14 +103,25 @@ var order = null
 
 func get_highscore(grid_id):
 	if grid_id in best_score:
-		return best_score[grid_id]
+		if "score" in best_score[grid_id]:
+			return best_score[grid_id]["score"]
 	return 0
 
-func save_highscore(grid_id, value):
+
+func get_click_count(grid_id):
+	if grid_id in best_score:
+		if "clicks" in best_score[grid_id]:
+			return best_score[grid_id]["clicks"]
+	return 0
+
+
+func save_highscore(grid_id, value, clicks):
 	if !(grid_id in best_score):
-		best_score[grid_id] = 0
-	if best_score[grid_id] < value:
-		best_score[grid_id] = value
+		best_score[grid_id] = {"score": 0, "clicks": 0}
+	if best_score[grid_id]["score"] < value:
+		best_score[grid_id]["score"] = value
+	if best_score[grid_id]["clicks"] < clicks:
+		best_score[grid_id]["clicks"] = clicks
 
 	var save_data = File.new()
 	save_data.open(SAVE_FILE_PATH, File.WRITE)
@@ -125,7 +136,7 @@ func load_highscore():
 		best_score = save_data.get_var()
 		save_data.close()
 	if !best_score:
-		best_score = {}
+		best_score = {"score": 0, "clicks": 0}
 
 
 func number_to_color(n):

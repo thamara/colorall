@@ -1,14 +1,23 @@
 extends Node2D
 
 
-onready var score_easy = $Box/EasyBox/Score
-onready var medium_easy = $Box/MediumBox/Score
-onready var hard_easy = $Box/HardBox/Score
+onready var easy_score = $Box/EasyBox/Score
+onready var medium_score = $Box/MediumBox/Score
+onready var hard_score = $Box/HardBox/Score
+
+onready var easy_clicks = $Box/EasyBox/Clicks
+onready var medium_clicks = $Box/MediumBox/Clicks
+onready var hard_clicks = $Box/HardBox/Clicks
 
 func _ready():
-	score_easy.text = str(GameManager.get_highscore(0))
-	medium_easy.text = str(GameManager.get_highscore(1))
-	hard_easy.text = str(GameManager.get_highscore(2))
+	easy_score.text = str(GameManager.get_highscore(0))
+	medium_score.text = str(GameManager.get_highscore(1))
+	hard_score.text = str(GameManager.get_highscore(2))
+	
+	easy_clicks.text = str(GameManager.get_click_count(0))
+	medium_clicks.text = str(GameManager.get_click_count(1))
+	hard_clicks.text = str(GameManager.get_click_count(2))
+	
 
 
 func _on_Btn_pressed(extra_arg):
