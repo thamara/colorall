@@ -40,7 +40,7 @@ outline_size = 2
 font_data = ExtResource( 10 )
 
 [sub_resource type="DynamicFont" id=1]
-size = 32
+size = 50
 font_data = ExtResource( 7 )
 
 [sub_resource type="CircleShape2D" id=2]
@@ -331,17 +331,17 @@ margin_left = 8.0
 margin_top = 8.0
 margin_right = 98.0
 margin_bottom = 98.0
-rect_scale = Vector2( 0.3, 0.3 )
+rect_scale = Vector2( 0.4, 0.4 )
 texture_normal = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Back" type="Label" parent="HUD"]
-margin_left = -10.0
-margin_top = -9.0
-margin_right = 53.0
-margin_bottom = 51.0
+margin_left = -7.0
+margin_top = -4.0
+margin_right = 56.0
+margin_bottom = 56.0
 theme = ExtResource( 5 )
 custom_fonts/font = SubResource( 1 )
 text = "<"
