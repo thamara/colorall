@@ -55,9 +55,9 @@ margin_right = 564.0
 margin_bottom = 373.0
 theme = ExtResource( 2 )
 custom_fonts/font = SubResource( 2 )
-text = "Absorb the neighborhood
-colors selecting a color
-to paint your starting blob."
+text = "Absorb the adjacent
+colors selecting by 
+changing your blob color."
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false
