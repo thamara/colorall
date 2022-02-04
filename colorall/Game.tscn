@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://ColorSelectionCircle.tscn" type="PackedScene" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://BackBtn.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Mouse.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Crown.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Achievements.tscn" type="PackedScene" id=18]
 
 [sub_resource type="Theme" id=8]
 
@@ -66,10 +67,9 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_horizontal_guides_": [ 208.0 ]
 }
-width = 5
-height = 5
-grid_scale = 2.0
-tutorial = true
+width = 3
+height = 3
+grid_scale = 3.0
 
 [node name="Background" parent="." instance=ExtResource( 3 )]
 
@@ -786,6 +786,10 @@ margin_top = 523.0
 margin_right = 942.32
 margin_bottom = 523.0
 text = "Next"
+
+[node name="Achievements" parent="." instance=ExtResource( 18 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
 
 [connection signal="game_over" from="GridControl/Grid" to="." method="_on_Grid_game_over"]
 [connection signal="input_event" from="HUD/StartBtn/Area2D" to="." method="_on_Area2D_input_event"]

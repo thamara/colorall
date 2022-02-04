@@ -14,6 +14,7 @@ var best_score = {}
 var click_count = 0
 var audio_volume = 1 setget set_audio_volume
 var state = State.Wait
+var achievement_notifier = null
 
 
 const EnumToName = {
@@ -233,6 +234,10 @@ func set_audio_volume(volume):
 	save_data.open(AUDIO_FILE_PATH, File.WRITE)
 	save_data.store_var(audio_volume)
 	save_data.close()
+
+
+func register_achievement_notifier(v):
+	achievement_notifier = v
 
 
 func _ready():
