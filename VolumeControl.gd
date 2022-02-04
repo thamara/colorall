@@ -6,7 +6,8 @@ onready var volume_control = $Volume
 
 func _ready():
 	volume_control.visible = false
-	volume_control.value = db2linear(AudioServer.get_bus_volume_db(bus))
+	AudioServer.set_bus_volume_db(bus, linear2db(GameManager.audio_volume))
+	volume_control.value = GameManager.audio_volume
 
 
 func _on_TextureButton_pressed():
@@ -14,4 +15,5 @@ func _on_TextureButton_pressed():
 
 
 func _on_Volume_value_changed(value):
-	AudioServer.set_bus_volume_db(bus, linear2db(value))
+	GameManager.audio_volume = value
+	AudioServer.set_bus_volume_db(bus, linear2db(GameManager.audio_volume))

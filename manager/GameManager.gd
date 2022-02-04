@@ -1,6 +1,7 @@
 extends Node
 
 const SAVE_FILE_PATH = "user://savedata.save"
+const AUDIO_FILE_PATH = "user://audio_level.save"
 
 enum Colors { Black = 0, White, Red, Yellow, Blue, Purple, Green, Orange}
 enum State { Wait, Ready }
@@ -11,6 +12,7 @@ var score = 0
 var final_score = 0
 var best_score = {}
 var click_count = 0
+var audio_volume = 1 setget set_audio_volume
 var state = State.Wait
 
 
@@ -199,6 +201,22 @@ func complete_order(orders):
 	order_it += 1
 
 
+func load_audio_volume():
+	var save_data = File.new()
+	if save_data.file_exists(AUDIO_FILE_PATH):
+		save_data.open(AUDIO_FILE_PATH, File.READ)
+		audio_volume = save_data.get_var()
+		save_data.close()
+
+
+func set_audio_volume(volume):
+	audio_volume = volume
+	var save_data = File.new()
+	save_data.open(AUDIO_FILE_PATH, File.WRITE)
+	save_data.store_var(audio_volume)
+	save_data.close()
+
+
 func _ready():
 	load_highscore()
-	print('highscore is: ', best_score)
+	load_audio_volume()

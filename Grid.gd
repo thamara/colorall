@@ -182,7 +182,6 @@ func new_game():
 	global_position.x = x
 	global_position.y = y
 	
-	print(global_position)
 	initialize_game()
 	place_pieces()
 	match_and_color()
