@@ -1,7 +1,6 @@
 # Godot-specific ignores
 colorall/.import/
 colorall/export.cfg
-colorall/assets/*.import
 
 # Imported translations (automatically generated from CSV files)
 *.translation

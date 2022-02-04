@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Chad Crouch - Algorithms.mp3-1d19cb9a980c629aa9fd5d5ef82e249f.mp3str"
+
+[deps]
+
+source_file="res://assets/Chad Crouch - Algorithms.mp3"
+dest_files=[ "res://.import/Chad Crouch - Algorithms.mp3-1d19cb9a980c629aa9fd5d5ef82e249f.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
