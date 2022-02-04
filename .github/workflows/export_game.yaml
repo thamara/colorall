@@ -1,0 +1,23 @@
+name: 'Export Game'
+on:
+  push:
+    branches:
+      - main
+jobs:
+  export_game:
+    runs-on: ubuntu-latest
+    name: Export game
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2.3.1
+      with:
+        fetch-depth: 0
+    - name: export game
+      uses: firebelley/godot-export@v2.8.0
+      with:
+        base_version: 0.1.0
+        godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/3.4.3/rc1/Godot_v3.4.3-rc1_linux_headless.64.zip
+        godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/3.4.3/rc1/Godot_v3.4.3-rc1_export_templates.tpz
+        relative_project_path: ./colorall
+      env:
+        GITHUB_TOKEN: ${{ secrets.EXPORT_GITHUB_TOKEN }}
