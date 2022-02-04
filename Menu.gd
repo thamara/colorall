@@ -38,7 +38,7 @@ func _ready():
 func _on_Animation1_timeout():
 	print(' animation 1 timeout')
 	
-	$Tween.interpolate_property($Mouse, "position", $Mouse.position, Vector2(864, 108), 0.2)
+	$Tween.interpolate_property($Mouse, "position", $Mouse.position, Vector2(557, 57), 0.2)
 	$Tween.start()
 	
 	_create_timer()
@@ -80,7 +80,7 @@ func _on_Animation1_timeout():
 	_create_timer()
 	yield(self,"timer_end")
 	
-	$Tween.interpolate_property($Mouse, "position", $Mouse.position, Vector2(864, 198), 0.2)
+	$Tween.interpolate_property($Mouse, "position", $Mouse.position, Vector2(557, 147), 0.2)
 	$Tween.start()
 	
 	_create_timer()
@@ -138,7 +138,7 @@ func _on_Animation1_timeout():
 	_create_timer()
 	yield(self,"timer_end")
 	
-	$Tween.interpolate_property($Mouse, "position", $Mouse.position, Vector2(1044, 144), 0.2)
+	$Tween.interpolate_property($Mouse, "position", $Mouse.position, Vector2(594, -69), 0.2)
 	$Tween.start()
 	
 	$AnimationSetup.start()
@@ -146,6 +146,7 @@ func _on_Animation1_timeout():
 
 
 func _on_AnimationSetup_timeout():
+	$TileMap.visible = false
 	tile0.set_color("Blue")
 	tile1.set_color("Blue")
 	tile2.set_color("Blue")
@@ -179,6 +180,7 @@ func _on_AnimationSetup_timeout():
 	tile4.show_glow()
 	tile6.show_glow()
 	
+	$TileMap.visible = true
 	$Animation1.start()
 
 
