@@ -9,6 +9,7 @@ enum State { Wait, Ready }
 var color_selected = Colors.Black
 var score = 0
 var final_score = 0
+var best_score = {}
 var click_count = 0
 var state = State.Wait
 
@@ -98,6 +99,32 @@ signal counter_changed
 
 var order = null
 
+func get_highscore(grid_id):
+	if grid_id in best_score:
+		return best_score[grid_id]
+	return 0
+
+func save_highscore(grid_id, value):
+	if !(grid_id in best_score):
+		best_score[grid_id] = 0
+	if best_score[grid_id] < value:
+		best_score[grid_id] = value
+
+	var save_data = File.new()
+	save_data.open(SAVE_FILE_PATH, File.WRITE)
+	save_data.store_var(best_score)
+	save_data.close()
+
+
+func load_highscore():
+	var save_data = File.new()
+	if save_data.file_exists(SAVE_FILE_PATH):
+		save_data.open(SAVE_FILE_PATH, File.READ)
+		best_score = save_data.get_var()
+		save_data.close()
+	if !best_score:
+		best_score = {}
+
 
 func number_to_color(n):
 	var n_to_c = {
@@ -173,4 +200,5 @@ func complete_order(orders):
 
 
 func _ready():
-	pass # Replace with function body.
+	load_highscore()
+	print('highscore is: ', best_score)

@@ -4,7 +4,7 @@ extends Node2D
 # Space by Chad Crouch
 
 export (int) var time = 60
-export (int) var level = 1
+export (int) var grid_id = 1
 
 onready var timer = $Timer
 onready var show_go_timer = $ShowGoTimer
@@ -70,13 +70,18 @@ func _on_ColorSelection_color_clicked():
 			$Tween.start()
 
 
+func process_game_over():
+	GameManager.save_highscore(grid_id, GameManager.final_score)
+	final_score_win.text = str(GameManager.final_score)
+	highest_score_win.text = str(GameManager.get_highscore(grid_id))
+	final_score_box.visible = true
+
+
 func _on_Grid_game_over():
 	timer.stop()
 	show_go_timer.start()
 	$ProgressBarColor.stop_all()
-	final_score_win.text = str(GameManager.final_score)
-	highest_score_win.text = str(GameManager.score)
-	final_score_box.visible = true
+	process_game_over()
 
 
 func _on_Area2D_input_event(viewport, event, shape_idx):
