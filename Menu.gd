@@ -36,8 +36,6 @@ func _ready():
 
 
 func _on_Animation1_timeout():
-	print(' animation 1 timeout')
-	
 	$Tween.interpolate_property($Mouse, "position", $Mouse.position, Vector2(557, 57), 0.2)
 	$Tween.start()
 	

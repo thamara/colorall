@@ -32,6 +32,11 @@ func initialize_game():
 
 func _ready():
 	initialize_game()
+	var tween = Tween.new()
+	add_child(tween)
+	tween.interpolate_property($HUD/ToolTip/Sprite, "modulate", $HUD/ToolTip/Sprite.modulate, Color(1, 1, 1, 1), 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	tween.set_repeat(true)
+	tween.start()
 
 
 func _get_time_str(time_in_secs):
@@ -68,6 +73,7 @@ func _on_ColorSelection_color_clicked():
 			click_timer.start()
 			$Tween.interpolate_property(click_progress_bar, "value", 0, 100, 1)
 			$Tween.start()
+		$HUD/ToolTip.visible = false
 
 
 func process_game_over():

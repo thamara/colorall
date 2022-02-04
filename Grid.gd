@@ -158,8 +158,6 @@ func match_and_color():
 	var score = len(pieces_to_color)
 	GameManager.score = score
 	
-	print('match_and_color: ', score)
-	
 	if score == width * height:
 		emit_signal("game_over")
 	
