@@ -83,7 +83,7 @@ func _on_ColorSelection_color_clicked():
 		penalty_label.text = str(GameManager.click_count)
 		if click_timer.is_stopped():
 			click_timer.start()
-			$Tween.interpolate_property(click_progress_bar, "value", 0, 100, 1)
+			$Tween.interpolate_property(click_progress_bar, "value", 0, 100, click_cooldown)
 			$Tween.start()
 		$HUD/ToolTip.visible = false
 
