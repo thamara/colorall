@@ -11,4 +11,8 @@ func _ready():
 
 
 func _on_TextureButton_pressed():
+	$AudioStreamPlayer.play()
+
+
+func _on_AudioStreamPlayer_finished():
 	emit_signal("pressed")

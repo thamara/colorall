@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://ColorSelectionCircle.tscn" type="PackedScene" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://assets/Chad Crouch - Space.mp3" type="AudioStream" id=12]
 [ext_resource path="res://assets/select.ogg" type="AudioStream" id=13]
 [ext_resource path="res://VolumeControl.tscn" type="PackedScene" id=14]
+[ext_resource path="res://BackBtn.tscn" type="PackedScene" id=15]
 
 [sub_resource type="Theme" id=8]
 
@@ -288,6 +289,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="BackBtn" parent="HUD" instance=ExtResource( 15 )]
+
 [node name="ScoreBoxes" type="Node2D" parent="HUD"]
 position = Vector2( 117, 118 )
 
@@ -332,31 +335,6 @@ shape = SubResource( 2 )
 
 [node name="ColorSelection" parent="HUD" instance=ExtResource( 2 )]
 position = Vector2( 157, 102 )
-
-[node name="BackBtn" type="TextureButton" parent="HUD"]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 98.0
-margin_bottom = 98.0
-rect_scale = Vector2( 0.4, 0.4 )
-texture_normal = ExtResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Back" type="Label" parent="HUD"]
-margin_left = -7.0
-margin_top = -4.0
-margin_right = 56.0
-margin_bottom = 56.0
-theme = ExtResource( 5 )
-custom_fonts/font = SubResource( 1 )
-text = "<"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="HighestScore" type="Control" parent="HUD"]
 visible = false
@@ -586,7 +564,6 @@ margin_bottom = -5.0
 [connection signal="game_over" from="GridControl/Grid" to="." method="_on_Grid_game_over"]
 [connection signal="input_event" from="HUD/StartBtn/Area2D" to="." method="_on_Area2D_input_event"]
 [connection signal="color_clicked" from="HUD/ColorSelection" to="." method="_on_ColorSelection_color_clicked"]
-[connection signal="pressed" from="HUD/BackBtn" to="." method="_on_BackBtn_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="ShowGoTimer" to="." method="_on_ShowGoTimer_timeout"]
 [connection signal="timeout" from="ClickTimer" to="." method="_on_ClickTimer_timeout"]

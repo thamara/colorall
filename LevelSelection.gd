@@ -9,6 +9,8 @@ onready var easy_clicks = $Box/EasyBox/Clicks
 onready var medium_clicks = $Box/MediumBox/Clicks
 onready var hard_clicks = $Box/HardBox/Clicks
 
+onready var game_scene = preload("res://Game.tscn")
+
 func _ready():
 	easy_score.text = str(GameManager.get_highscore(0))
 	medium_score.text = str(GameManager.get_highscore(1))
@@ -21,7 +23,7 @@ func _ready():
 
 
 func _on_Btn_pressed(extra_arg):
-	var game = preload("res://Game.tscn").instance()
+	var game = game_scene.instance()
 
 	# easy
 	if extra_arg == 0:
@@ -49,6 +51,3 @@ func _on_Btn_pressed(extra_arg):
 	get_tree().get_root().add_child(game)
 	queue_free()
 
-
-func _on_BackBtn_pressed():
-	get_tree().change_scene("res://Menu.tscn")

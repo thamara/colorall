@@ -7,8 +7,9 @@
 [ext_resource path="res://assets/Chad Crouch - Algorithms.mp3" type="AudioStream" id=5]
 [ext_resource path="res://Button.tscn" type="PackedScene" id=6]
 [ext_resource path="res://LevelSelection.gd" type="Script" id=7]
-[ext_resource path="res://assets/green_circle_button.png" type="Texture" id=8]
+[ext_resource path="res://Menu.tscn" type="PackedScene" id=8]
 [ext_resource path="res://VolumeControl.tscn" type="PackedScene" id=9]
+[ext_resource path="res://BackBtn.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Theme" id=2]
 
@@ -22,10 +23,6 @@ font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=7]
 size = 40
-font_data = ExtResource( 4 )
-
-[sub_resource type="DynamicFont" id=5]
-size = 50
 font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=6]
@@ -250,31 +247,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BackBtn" type="TextureButton" parent="."]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 98.0
-margin_bottom = 98.0
-rect_scale = Vector2( 0.4, 0.4 )
-texture_normal = ExtResource( 8 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Back" type="Label" parent="."]
-margin_left = -7.0
-margin_top = -4.0
-margin_right = 56.0
-margin_bottom = 56.0
-theme = ExtResource( 3 )
-custom_fonts/font = SubResource( 5 )
-text = "<"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Control" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -310,7 +282,9 @@ margin_top = -5.0
 margin_right = 954.0
 margin_bottom = -5.0
 
+[node name="BackBtn" parent="." instance=ExtResource( 10 )]
+scene = ExtResource( 8 )
+
 [connection signal="pressed" from="Box/EasyBox/Btn" to="." method="_on_Btn_pressed" binds= [ 0 ]]
 [connection signal="pressed" from="Box/MediumBox/Btn" to="." method="_on_Btn_pressed" binds= [ 1 ]]
 [connection signal="pressed" from="Box/HardBox/Btn" to="." method="_on_Btn_pressed" binds= [ 2 ]]
-[connection signal="pressed" from="BackBtn" to="." method="_on_BackBtn_pressed"]
