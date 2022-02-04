@@ -339,41 +339,34 @@ __meta__ = {
 }
 
 [node name="HighestScore" type="Control" parent="HUD"]
-margin_left = -15.0
-margin_top = 9.0
-margin_right = 25.0
-margin_bottom = 49.0
+margin_left = 312.0
+margin_top = 56.0
+margin_right = 976.0
+margin_bottom = 560.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ColorRect" type="ColorRect" parent="HUD/HighestScore"]
-margin_left = 408.0
-margin_top = 136.0
-margin_right = 912.0
-margin_bottom = 464.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 color = Color( 0.121569, 0.137255, 0.219608, 0.945098 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="HUD/HighestScore"]
-margin_left = 408.0
-margin_top = 300.0
-margin_right = 912.0
-margin_bottom = 360.0
-theme = ExtResource( 5 )
-text = "Best"
-align = 1
+[node name="Box" type="VBoxContainer" parent="HUD/HighestScore"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label2" type="Label" parent="HUD/HighestScore"]
-margin_left = 408.0
-margin_top = 144.0
-margin_right = 912.0
-margin_bottom = 204.0
+[node name="Score" type="Label" parent="HUD/HighestScore/Box"]
+margin_top = 85.0
+margin_right = 664.0
+margin_bottom = 145.0
 theme = ExtResource( 5 )
 text = "Score"
 align = 1
@@ -381,11 +374,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FinalScore" type="Label" parent="HUD/HighestScore"]
-margin_left = 592.0
-margin_top = 206.0
-margin_right = 735.0
-margin_bottom = 339.0
+[node name="FinalScore" type="Label" parent="HUD/HighestScore/Box"]
+margin_top = 149.0
+margin_right = 664.0
+margin_bottom = 246.0
 theme = ExtResource( 5 )
 custom_colors/font_color = Color( 0.427451, 0.796078, 0.576471, 1 )
 custom_constants/shadow_offset_x = 1
@@ -398,11 +390,26 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HighestScore" type="Label" parent="HUD/HighestScore"]
-margin_left = 592.0
-margin_top = 368.0
-margin_right = 735.0
-margin_bottom = 501.0
+[node name="HSeparator" type="HSeparator" parent="HUD/HighestScore/Box"]
+margin_top = 250.0
+margin_right = 664.0
+margin_bottom = 254.0
+
+[node name="Best" type="Label" parent="HUD/HighestScore/Box"]
+margin_top = 258.0
+margin_right = 664.0
+margin_bottom = 318.0
+theme = ExtResource( 5 )
+text = "Best"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HighestScore" type="Label" parent="HUD/HighestScore/Box"]
+margin_top = 322.0
+margin_right = 664.0
+margin_bottom = 419.0
 theme = ExtResource( 5 )
 custom_colors/font_color = Color( 0.427451, 0.796078, 0.576471, 1 )
 custom_constants/shadow_offset_x = 1
