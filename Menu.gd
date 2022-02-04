@@ -195,7 +195,10 @@ func _on_TextureButton_pressed():
 
 func _on_TutorialBtn_pressed():
 	var game = preload("res://Game.tscn").instance()
+	game.time = 60
+	game.grid_id = 0
 	game.width = 5
 	game.height = 5
+	game.grid_scale = 2.5
 	get_tree().get_root().add_child(game)
 	queue_free()

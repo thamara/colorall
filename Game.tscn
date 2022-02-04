@@ -49,13 +49,28 @@ radius = 32.0
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
 __meta__ = {
-"_edit_vertical_guides_": [ 320.0, 32.0 ]
+"_edit_horizontal_guides_": [ 208.0 ],
+"_edit_vertical_guides_": [ 320.0, 32.0, 608.0 ]
 }
+time = 20
+width = 5
+height = 5
+grid_scale = 2.5
 
 [node name="Background" parent="." instance=ExtResource( 3 )]
 
-[node name="Grid" parent="." instance=ExtResource( 4 )]
-position = Vector2( 320, 64 )
+[node name="GridControl" type="Control" parent="."]
+margin_left = 320.0
+margin_top = 64.0
+margin_right = 968.0
+margin_bottom = 568.0
+grow_horizontal = 2
+grow_vertical = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Grid" parent="GridControl" instance=ExtResource( 4 )]
 width = 12
 height = 9
 
@@ -341,7 +356,7 @@ visible = false
 margin_left = 312.0
 margin_top = 56.0
 margin_right = 976.0
-margin_bottom = 560.0
+margin_bottom = 568.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -349,7 +364,7 @@ __meta__ = {
 [node name="ColorRect" type="ColorRect" parent="HUD/HighestScore"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0.121569, 0.137255, 0.219608, 0.945098 )
+color = Color( 0.121569, 0.137255, 0.219608, 0.890196 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -363,9 +378,9 @@ __meta__ = {
 }
 
 [node name="Score" type="Label" parent="HUD/HighestScore/Box"]
-margin_top = 85.0
+margin_top = 89.0
 margin_right = 664.0
-margin_bottom = 145.0
+margin_bottom = 149.0
 theme = ExtResource( 5 )
 text = "Score"
 align = 1
@@ -374,9 +389,9 @@ __meta__ = {
 }
 
 [node name="FinalScore" type="Label" parent="HUD/HighestScore/Box"]
-margin_top = 149.0
+margin_top = 153.0
 margin_right = 664.0
-margin_bottom = 246.0
+margin_bottom = 250.0
 theme = ExtResource( 5 )
 custom_colors/font_color = Color( 0.427451, 0.796078, 0.576471, 1 )
 custom_constants/shadow_offset_x = 1
@@ -390,14 +405,14 @@ __meta__ = {
 }
 
 [node name="HSeparator" type="HSeparator" parent="HUD/HighestScore/Box"]
-margin_top = 250.0
+margin_top = 254.0
 margin_right = 664.0
-margin_bottom = 254.0
+margin_bottom = 258.0
 
 [node name="Best" type="Label" parent="HUD/HighestScore/Box"]
-margin_top = 258.0
+margin_top = 262.0
 margin_right = 664.0
-margin_bottom = 318.0
+margin_bottom = 322.0
 theme = ExtResource( 5 )
 text = "Best"
 align = 1
@@ -406,9 +421,9 @@ __meta__ = {
 }
 
 [node name="HighestScore" type="Label" parent="HUD/HighestScore/Box"]
-margin_top = 322.0
+margin_top = 326.0
 margin_right = 664.0
-margin_bottom = 419.0
+margin_bottom = 423.0
 theme = ExtResource( 5 )
 custom_colors/font_color = Color( 0.427451, 0.796078, 0.576471, 1 )
 custom_constants/shadow_offset_x = 1
@@ -447,7 +462,7 @@ bus = "Music"
 stream = ExtResource( 13 )
 bus = "Effects"
 
-[connection signal="game_over" from="Grid" to="." method="_on_Grid_game_over"]
+[connection signal="game_over" from="GridControl/Grid" to="." method="_on_Grid_game_over"]
 [connection signal="input_event" from="HUD/StartBtn/Area2D" to="." method="_on_Area2D_input_event"]
 [connection signal="color_clicked" from="HUD/ColorSelection" to="." method="_on_ColorSelection_color_clicked"]
 [connection signal="pressed" from="HUD/BackBtn" to="." method="_on_BackBtn_pressed"]

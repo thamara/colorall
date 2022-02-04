@@ -15,7 +15,7 @@ signal game_over
 
 
 func place_pieces():
-	set_bg()
+#	set_bg()
 	for i in width:
 		for j in height:
 			create_piece_at(i, j)
@@ -172,6 +172,17 @@ func run_game():
 
 
 func new_game():
+	var multiplier = get_parent().rect_scale
+	var outside_control_size = get_parent().rect_size 
+	var outside_control_position = get_parent().rect_position 
+	
+	var grid_size = Vector2(36*width*multiplier.x, 36*height*multiplier.y)
+	var x = (outside_control_size.x - grid_size.x)/2 + outside_control_position.x
+	var y = (outside_control_size.y - grid_size.y)/2 + outside_control_position.y
+	global_position.x = x
+	global_position.y = y
+	
+	print(global_position)
 	initialize_game()
 	place_pieces()
 	match_and_color()

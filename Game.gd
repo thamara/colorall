@@ -22,7 +22,8 @@ onready var final_score_win = $HUD/HighestScore/Box/FinalScore
 onready var highest_score_win = $HUD/HighestScore/Box/HighestScore
 onready var start_btn = $HUD/StartBtn
 onready var click_progress_bar = $HUD/ClickProgressBar
-onready var grid = $Grid
+onready var grid = $GridControl/Grid
+onready var grid_control = $GridControl
 onready var bg_geometric = $BgGeometric
 
 
@@ -36,7 +37,8 @@ func initialize_game():
 func _ready():
 	grid.width = width
 	grid.height = height
-	grid.scale = Vector2(grid_scale, grid_scale)
+	grid_control.rect_scale = Vector2(grid_scale, grid_scale)
+	grid_control.rect_size = Vector2(648, 504)
 	initialize_game()
 	var tween = Tween.new()
 	add_child(tween)
@@ -71,6 +73,7 @@ func _on_Timer_timeout():
 
 
 func _on_ColorSelection_color_clicked():
+	print(grid_control.rect_size)
 	if !timer.is_stopped():
 		grid.run_game()
 		score_label.text = str(GameManager.score)
