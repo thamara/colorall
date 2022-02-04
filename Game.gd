@@ -121,4 +121,4 @@ func _on_ClickTimer_timeout():
 
 
 func _on_BackBtn_pressed():
-	get_tree().change_scene("res://Menu.tscn")
+	get_tree().change_scene("res://LevelSelection.tscn")

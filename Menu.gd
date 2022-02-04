@@ -182,23 +182,5 @@ func _on_AnimationSetup_timeout():
 	$Animation1.start()
 
 
-func _on_TutorialBtn_pressed():
-	var game = preload("res://Game.tscn").instance()
-	game.time = 60
-	game.grid_id = 0
-	game.width = 5
-	game.height = 5
-	game.grid_scale = 2.5
-	get_tree().get_root().add_child(game)
-	queue_free()
-
-
 func _on_Button_pressed():
-	var game = preload("res://Game.tscn").instance()
-	game.time = 60
-	game.grid_id = 1
-	game.width = 12
-	game.height = 9
-	game.grid_scale = 1.5
-	get_tree().get_root().add_child(game)
-	queue_free()
+	get_tree().change_scene("res://LevelSelection.tscn")
