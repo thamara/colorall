@@ -9,6 +9,7 @@ export (int) var width = 12
 export (int) var height = 9
 export (float) var grid_scale = 1.5
 export (float) var click_cooldown = 1
+export (bool) var tutorial = false
 
 onready var timer = $Timer
 onready var show_go_timer = $ShowGoTimer
@@ -29,6 +30,20 @@ onready var grid = $GridControl/Grid
 onready var grid_control = $GridControl
 onready var bg_geometric = $BgGeometric
 
+onready var tutorial_node = $Tutorial
+onready var tutorial_steps = [
+	$Tutorial/S1,
+	$Tutorial/S2,
+	$Tutorial/S3,
+	$Tutorial/S4,
+	$Tutorial/S5,
+	$Tutorial/S6,
+	$Tutorial/S7,
+	$Tutorial/S8,
+]
+var tutorial_step = 0
+
+var re_use_grid = tutorial
 
 func initialize_game():
 	timer_bar.value = time
@@ -43,7 +58,14 @@ func _ready():
 	grid_control.rect_scale = Vector2(grid_scale, grid_scale)
 	grid_control.rect_size = Vector2(648, 504)
 	click_timer.wait_time = click_cooldown
+	if !tutorial:
+		remove_child(tutorial_node)
+	else:
+		grid.new_game()
+		tutorial_node.visible = true
+		re_use_grid = true
 	initialize_game()
+
 	var tween = Tween.new()
 	add_child(tween)
 	tween.interpolate_property($HUD/ToolTip/Sprite, "modulate", $HUD/ToolTip/Sprite.modulate, Color(1, 1, 1, 1), 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN)
@@ -89,11 +111,14 @@ func _on_ColorSelection_color_clicked():
 
 
 func process_game_over():
-	GameManager.save_highscore(grid_id, GameManager.final_score, GameManager.click_count)
+	var crown = $HUD/HighestScore/Crown
+	crown.visible = false
+	var is_new_best = GameManager.save_highscore(grid_id, GameManager.final_score, GameManager.click_count)
 	final_score_win.text = str(GameManager.final_score)
 	highest_score_win.text = str(GameManager.get_highscore(grid_id))
 	final_clicks_win.text = str(GameManager.click_count)
 	highest_clicks_win.text = GameManager.get_click_count_str(grid_id)
+	crown.visible = is_new_best
 	final_score_box.visible = true
 
 
@@ -101,16 +126,21 @@ func _on_Grid_game_over():
 	timer.stop()
 	show_go_timer.start()
 	$ProgressBarColor.stop_all()
+	timer_bar.visible = false;
 	process_game_over()
 
 
 func _on_Area2D_input_event(viewport, event, shape_idx):
+	if tutorial:
+		return
 	if (event is InputEventMouseButton && event.pressed):
 		start_btn.visible = false
 		$Select.play()
 		final_score_box.visible = false
-		grid.new_game()
+		if !re_use_grid:
+			grid.new_game()
 		timer.start()
+		timer_bar.visible = true;
 		$ProgressBarColor.interpolate_property(timer_bar, "modulate", Color("#6dcb93"), Color("#f03c37"), 60)
 		$ProgressBarColor.start()
 		score_label.text = str(GameManager.score)
@@ -124,3 +154,23 @@ func _on_ShowGoTimer_timeout():
 func _on_ClickTimer_timeout():
 	GameManager.state = GameManager.State.Ready
 
+
+func _on_Skip_pressed():
+	tutorial = false
+	tutorial_node.visible = false
+
+
+func _on_Next_pressed():
+	if tutorial_step == 3:
+		timer_bar.visible = true
+	if tutorial_step == 6:
+		tutorial_node.get_node("Next").text = "Done"
+	if tutorial_step == 7:
+		tutorial = false
+		tutorial_node.visible = false
+		return
+		
+	tutorial_steps[tutorial_step].visible = false
+	tutorial_step += 1
+	tutorial_steps[tutorial_step].visible = true
+	

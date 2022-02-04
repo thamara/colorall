@@ -11,5 +11,5 @@ dest_files=[ "res://.import/Chad Crouch - Space.mp3-50512f7e5699f1156776091a5c64
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

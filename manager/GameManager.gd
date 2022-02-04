@@ -119,10 +119,12 @@ func get_click_count_str(grid_id):
 
 
 func save_highscore(grid_id, value, clicks):
+	var new_highscore = false
 	if !(grid_id in best_score):
 		best_score[grid_id] = {"score": 0, "clicks": -1}
 	if best_score[grid_id]["score"] < value:
 		best_score[grid_id]["score"] = value
+		new_highscore = true
 	if best_score[grid_id]["clicks"] > clicks || best_score[grid_id]["clicks"] == -1:
 		best_score[grid_id]["clicks"] = clicks
 
@@ -130,6 +132,8 @@ func save_highscore(grid_id, value, clicks):
 	save_data.open(SAVE_FILE_PATH, File.WRITE)
 	save_data.store_var(best_score)
 	save_data.close()
+	
+	return new_highscore
 
 
 func load_highscore():
@@ -232,5 +236,6 @@ func set_audio_volume(volume):
 
 
 func _ready():
+	MusicManager.play()
 	load_highscore()
 	load_audio_volume()

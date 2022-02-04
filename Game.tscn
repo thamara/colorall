@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://ColorSelectionCircle.tscn" type="PackedScene" id=2]
@@ -11,10 +11,12 @@
 [ext_resource path="res://assets/score_1.png" type="Texture" id=9]
 [ext_resource path="res://assets/SpaceMono-Regular.ttf" type="DynamicFontData" id=10]
 [ext_resource path="res://assets/circle_white_outside.png" type="Texture" id=11]
-[ext_resource path="res://assets/Chad Crouch - Space.mp3" type="AudioStream" id=12]
+[ext_resource path="res://Button.tscn" type="PackedScene" id=12]
 [ext_resource path="res://assets/select.ogg" type="AudioStream" id=13]
 [ext_resource path="res://VolumeControl.tscn" type="PackedScene" id=14]
 [ext_resource path="res://BackBtn.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Mouse.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Crown.tscn" type="PackedScene" id=17]
 
 [sub_resource type="Theme" id=8]
 
@@ -55,15 +57,19 @@ bg_color = Color( 1, 1, 1, 0 )
 size = 60
 font_data = ExtResource( 7 )
 
+[sub_resource type="DynamicFont" id=12]
+size = 30
+font_data = ExtResource( 7 )
+
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
 __meta__ = {
-"_edit_horizontal_guides_": [ 208.0 ],
-"_edit_vertical_guides_": [ 320.0, 32.0, 608.0 ]
+"_edit_horizontal_guides_": [ 208.0 ]
 }
 width = 5
 height = 5
 grid_scale = 2.0
+tutorial = true
 
 [node name="Background" parent="." instance=ExtResource( 3 )]
 
@@ -135,6 +141,7 @@ __meta__ = {
 }
 
 [node name="TimerBar" type="ProgressBar" parent="HUD"]
+visible = false
 margin_left = 316.0
 margin_top = 53.0
 margin_right = 968.0
@@ -354,6 +361,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Crown" type="Node2D" parent="HUD/HighestScore"]
+visible = false
+
+[node name="Crown" parent="HUD/HighestScore/Crown" instance=ExtResource( 17 )]
+position = Vector2( 584, 136 )
+rotation = 0.116907
+
+[node name="Crown2" parent="HUD/HighestScore/Crown" instance=ExtResource( 17 )]
+position = Vector2( 104, 144 )
+rotation = -0.609175
+
 [node name="Box" type="VBoxContainer" parent="HUD/HighestScore"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -546,11 +564,6 @@ one_shot = true
 
 [node name="ProgressBarColor" type="Tween" parent="."]
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 12 )
-autoplay = true
-bus = "Music"
-
 [node name="Select" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 13 )
 bus = "Effects"
@@ -561,9 +574,223 @@ margin_top = -5.0
 margin_right = 954.0
 margin_bottom = -5.0
 
+[node name="Tutorial" type="Control" parent="."]
+visible = false
+margin_right = 1024.0
+margin_bottom = 600.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Tutorial"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.223529 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="S1" type="Control" parent="Tutorial"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label" type="Label" parent="Tutorial/S1"]
+margin_left = 295.0
+margin_top = 69.0
+margin_right = 599.0
+margin_bottom = 106.0
+theme = ExtResource( 5 )
+custom_fonts/font = SubResource( 12 )
+text = "This is your initial blob"
+
+[node name="Mouse" parent="Tutorial/S1" instance=ExtResource( 16 )]
+position = Vector2( 432, 168 )
+rotation = 2.75137
+
+[node name="S2" type="Control" parent="Tutorial"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label" type="Label" parent="Tutorial/S2"]
+margin_left = 280.0
+margin_top = 11.0
+margin_right = 798.0
+margin_bottom = 128.0
+theme = ExtResource( 5 )
+custom_fonts/font = SubResource( 12 )
+text = "Selecting a color in the wheel will color
+your blob with that color, and allow it to absorb
+the adjacent squares with that same color."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mouse" parent="Tutorial/S2" instance=ExtResource( 16 )]
+position = Vector2( 216, 64 )
+rotation = 5.0036
+
+[node name="S3" type="Control" parent="Tutorial"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label" type="Label" parent="Tutorial/S3"]
+margin_left = 312.0
+margin_top = 41.0
+margin_right = 857.0
+margin_bottom = 118.0
+theme = ExtResource( 5 )
+custom_fonts/font = SubResource( 12 )
+text = "There is a cool down between clicks,
+so it's not possible to go toooo crazy."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mouse" parent="Tutorial/S3" instance=ExtResource( 16 )]
+position = Vector2( 264, 96 )
+rotation = 5.10149
+
+[node name="S4" type="Control" parent="Tutorial"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Tutorial/S4"]
+margin_left = 360.0
+margin_top = 16.0
+margin_right = 940.0
+margin_bottom = 93.0
+theme = ExtResource( 5 )
+custom_fonts/font = SubResource( 12 )
+text = "Your goal is to completely fill the grid with 
+your blob in any color..."
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mouse" parent="Tutorial/S4" instance=ExtResource( 16 )]
+position = Vector2( 466, 90 )
+rotation = 10.1967
+
+[node name="Line2D" type="Line2D" parent="Tutorial/S4"]
+points = PoolVector2Array( 448, 128, 448, 512, 840, 512, 840, 120, 448, 120, 448, 128 )
+default_color = Color( 1, 1, 1, 1 )
+
+[node name="S5" type="Control" parent="Tutorial"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Tutorial/S5"]
+margin_left = 360.0
+margin_top = 91.0
+margin_right = 940.0
+margin_bottom = 168.0
+theme = ExtResource( 5 )
+custom_fonts/font = SubResource( 12 )
+text = "...but you have only 1 minute!"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Line2D" type="Line2D" parent="Tutorial/S5"]
+points = PoolVector2Array( 296, 64, 296, 80, 984, 80, 984, 40, 296, 40, 296, 64 )
+default_color = Color( 1, 1, 1, 1 )
+
+[node name="S6" type="Control" parent="Tutorial"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Tutorial/S6"]
+margin_left = 304.0
+margin_top = 504.0
+margin_right = 884.0
+margin_bottom = 581.0
+theme = ExtResource( 5 )
+custom_fonts/font = SubResource( 12 )
+text = "Your score is the the sum of the squares
+in your blob minus the amount of clicks..."
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Line2D" type="Line2D" parent="Tutorial/S6"]
+points = PoolVector2Array( 16, 224, 16, 568, 288, 568, 288, 224, 11, 224 )
+default_color = Color( 1, 1, 1, 1 )
+
+[node name="S7" type="Control" parent="Tutorial"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Tutorial/S7"]
+margin_left = 304.0
+margin_top = 536.0
+margin_right = 884.0
+margin_bottom = 573.0
+theme = ExtResource( 5 )
+custom_fonts/font = SubResource( 12 )
+text = "... all multiplied by the time you have left."
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Line2D" type="Line2D" parent="Tutorial/S7"]
+points = PoolVector2Array( 16, 224, 16, 568, 288, 568, 288, 224, 11, 224 )
+default_color = Color( 1, 1, 1, 1 )
+
+[node name="S8" type="Control" parent="Tutorial"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Tutorial/S8"]
+margin_left = 352.0
+margin_top = 512.0
+margin_right = 932.0
+margin_bottom = 589.0
+theme = ExtResource( 5 )
+custom_fonts/font = SubResource( 12 )
+text = "Be quick and color all
+before you ran out of time!"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Next" parent="Tutorial" instance=ExtResource( 12 )]
+margin_left = 941.68
+margin_top = 523.0
+margin_right = 942.32
+margin_bottom = 523.0
+text = "Next"
+
 [connection signal="game_over" from="GridControl/Grid" to="." method="_on_Grid_game_over"]
 [connection signal="input_event" from="HUD/StartBtn/Area2D" to="." method="_on_Area2D_input_event"]
 [connection signal="color_clicked" from="HUD/ColorSelection" to="." method="_on_ColorSelection_color_clicked"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="ShowGoTimer" to="." method="_on_ShowGoTimer_timeout"]
 [connection signal="timeout" from="ClickTimer" to="." method="_on_ClickTimer_timeout"]
+[connection signal="pressed" from="Tutorial/Next" to="." method="_on_Next_pressed"]

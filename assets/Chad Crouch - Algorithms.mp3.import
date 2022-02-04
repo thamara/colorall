@@ -11,5 +11,5 @@ dest_files=[ "res://.import/Chad Crouch - Algorithms.mp3-1d19cb9a980c629aa9fd5d5
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0
