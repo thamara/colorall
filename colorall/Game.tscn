@@ -43,8 +43,8 @@ size = 30
 outline_size = 2
 font_data = ExtResource( 10 )
 
-[sub_resource type="DynamicFont" id=1]
-size = 50
+[sub_resource type="DynamicFont" id=13]
+size = 38
 font_data = ExtResource( 7 )
 
 [sub_resource type="CircleShape2D" id=2]
@@ -322,12 +322,12 @@ scale = Vector2( 0.65, 0.65 )
 texture = ExtResource( 6 )
 
 [node name="Label" type="Label" parent="HUD/StartBtn"]
-margin_left = -32.0
+margin_left = -31.0
 margin_top = -32.0
-margin_right = 31.0
+margin_right = 32.0
 margin_bottom = 28.0
 theme = ExtResource( 5 )
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 13 )
 text = "Go!"
 align = 1
 valign = 1
