@@ -14,9 +14,14 @@ onready var timer_label = $HUD/TimerLabel
 onready var score_label = $HUD/ScoreLabel
 onready var penalty_label = $HUD/PenaltyLabel
 onready var final_score = $HUD/FinalScore
+onready var final_score_box = $HUD/HighestScore
+onready var final_score_win = $HUD/HighestScore/FinalScore
+onready var highest_score_win = $HUD/HighestScore/HighestScore
 onready var start_btn = $HUD/StartBtn
 onready var click_progress_bar = $HUD/ClickProgressBar
 onready var grid = $Grid
+onready var bg_geometric = $BgGeometric
+
 
 func initialize_game():
 	timer_bar.value = time
@@ -26,8 +31,13 @@ func initialize_game():
 
 
 func _ready():
+	var tween = Tween.new()
+	add_child(tween)
+	tween.interpolate_property($Background/Path2D/PathFollow2D, "unit_offset", 0, 1, 30)
+	tween.set_repeat(true)
+	tween.start()
+	
 	initialize_game()
-	pass # Replace with function body.
 
 
 func _get_time_str(time_in_secs):
@@ -41,7 +51,8 @@ func update_score():
 	var time_left = timer.time_left
 	timer_bar.value = time_left
 	timer_label.text = _get_time_str(time_left)
-	final_score.text = str(floor((GameManager.score - GameManager.click_count) * max(time_left, 1)))
+	GameManager.final_score = floor((GameManager.score - GameManager.click_count) * max(time_left, 1))
+	final_score.text = str(GameManager.final_score)
 
 
 func _process(_delta):
@@ -69,12 +80,16 @@ func _on_Grid_game_over():
 	timer.stop()
 	show_go_timer.start()
 	$ProgressBarColor.stop_all()
+	final_score_win.text = str(GameManager.final_score)
+	highest_score_win.text = str(GameManager.score)
+	final_score_box.visible = true
 
 
 func _on_Area2D_input_event(viewport, event, shape_idx):
 	if (event is InputEventMouseButton && event.pressed):
 		start_btn.visible = false
 		$Select.play()
+		final_score_box.visible = false
 		grid.new_game()
 		timer.start()
 		$ProgressBarColor.interpolate_property(timer_bar, "modulate", Color("#6dcb93"), Color("#f03c37"), 60)

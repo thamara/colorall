@@ -1,10 +1,14 @@
 extends Node
 
+const SAVE_FILE_PATH = "user://savedata.save"
+
 enum Colors { Black = 0, White, Red, Yellow, Blue, Purple, Green, Orange}
 enum State { Wait, Ready }
 
+
 var color_selected = Colors.Black
 var score = 0
+var final_score = 0
 var click_count = 0
 var state = State.Wait
 

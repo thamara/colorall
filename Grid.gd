@@ -157,6 +157,10 @@ func match_and_color():
 	find_matches(Vector2(0, 0))
 	var score = len(pieces_to_color)
 	GameManager.score = score
+	
+	if score == width * height:
+		emit_signal("game_over")
+	
 	pieces_to_color = []
 
 func run_game():
