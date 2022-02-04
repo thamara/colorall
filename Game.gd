@@ -5,8 +5,8 @@ extends Node2D
 
 export (int) var time = 60
 export (int) var grid_id = 1
-export (int) var width = 0
-export (int) var height = 0
+export (int) var width = 12
+export (int) var height = 9
 export (float) var grid_scale = 1.5
 
 onready var timer = $Timer

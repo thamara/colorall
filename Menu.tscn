@@ -172,6 +172,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="TutorialBtn" type="Button" parent="."]
+margin_left = 144.0
+margin_top = 471.0
+margin_right = 156.0
+margin_bottom = 491.0
+text = "Tutorial"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="timeout" from="Animation1" to="." method="_on_Animation1_timeout"]
 [connection signal="timeout" from="AnimationSetup" to="." method="_on_AnimationSetup_timeout"]
 [connection signal="pressed" from="TextureButton" to="." method="_on_TextureButton_pressed"]
+[connection signal="pressed" from="TutorialBtn" to="." method="_on_TutorialBtn_pressed"]
