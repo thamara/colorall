@@ -19,8 +19,10 @@ onready var score_label = $HUD/ScoreLabel
 onready var penalty_label = $HUD/PenaltyLabel
 onready var final_score = $HUD/FinalScore
 onready var final_score_box = $HUD/HighestScore
-onready var final_score_win = $HUD/HighestScore/Box/FinalScore
-onready var highest_score_win = $HUD/HighestScore/Box/HighestScore
+onready var final_score_win = $HUD/HighestScore/Box/Current/Score/Value
+onready var highest_score_win = $HUD/HighestScore/Box/Best/Score/Value
+onready var final_clicks_win = $HUD/HighestScore/Box/Current/Clicks/Value
+onready var highest_clicks_win = $HUD/HighestScore/Box/Best/Clicks/Value
 onready var start_btn = $HUD/StartBtn
 onready var click_progress_bar = $HUD/ClickProgressBar
 onready var grid = $GridControl/Grid
@@ -75,7 +77,6 @@ func _on_Timer_timeout():
 
 
 func _on_ColorSelection_color_clicked():
-	print(grid_control.rect_size)
 	if !timer.is_stopped():
 		grid.run_game()
 		score_label.text = str(GameManager.score)
@@ -91,6 +92,8 @@ func process_game_over():
 	GameManager.save_highscore(grid_id, GameManager.final_score, GameManager.click_count)
 	final_score_win.text = str(GameManager.final_score)
 	highest_score_win.text = str(GameManager.get_highscore(grid_id))
+	final_clicks_win.text = str(GameManager.click_count)
+	highest_clicks_win.text = GameManager.get_click_count_str(grid_id)
 	final_score_box.visible = true
 
 

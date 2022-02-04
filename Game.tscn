@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://ColorSelectionCircle.tscn" type="PackedScene" id=2]
@@ -47,15 +47,22 @@ font_data = ExtResource( 7 )
 [sub_resource type="CircleShape2D" id=2]
 radius = 32.0
 
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 1, 1, 1, 0 )
+
+[sub_resource type="DynamicFont" id=11]
+size = 60
+font_data = ExtResource( 7 )
+
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_horizontal_guides_": [ 208.0 ],
 "_edit_vertical_guides_": [ 320.0, 32.0, 608.0 ]
 }
-width = 14
-height = 11
-grid_scale = 1.2
+width = 5
+height = 5
+grid_scale = 2.0
 
 [node name="Background" parent="." instance=ExtResource( 3 )]
 
@@ -364,7 +371,7 @@ __meta__ = {
 [node name="ColorRect" type="ColorRect" parent="HUD/HighestScore"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0.121569, 0.137255, 0.219608, 0.890196 )
+color = Color( 0.121569, 0.137255, 0.219608, 0.952941 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -377,10 +384,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Score" type="Label" parent="HUD/HighestScore/Box"]
-margin_top = 89.0
+[node name="Current" type="HBoxContainer" parent="HUD/HighestScore/Box"]
+margin_top = 50.0
 margin_right = 664.0
-margin_bottom = 149.0
+margin_bottom = 211.0
+alignment = 1
+
+[node name="Score" type="VBoxContainer" parent="HUD/HighestScore/Box/Current"]
+margin_left = 160.0
+margin_right = 281.0
+margin_bottom = 161.0
+
+[node name="Label" type="Label" parent="HUD/HighestScore/Box/Current/Score"]
+margin_right = 121.0
+margin_bottom = 60.0
 theme = ExtResource( 5 )
 text = "Score"
 align = 1
@@ -388,10 +405,48 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FinalScore" type="Label" parent="HUD/HighestScore/Box"]
-margin_top = 153.0
-margin_right = 664.0
-margin_bottom = 250.0
+[node name="Value" type="Label" parent="HUD/HighestScore/Box/Current/Score"]
+margin_top = 64.0
+margin_right = 121.0
+margin_bottom = 161.0
+theme = ExtResource( 5 )
+custom_colors/font_color = Color( 0.427451, 0.796078, 0.576471, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+custom_constants/shadow_as_outline = 0
+custom_fonts/font = SubResource( 3 )
+text = "0"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VSeparator" type="VSeparator" parent="HUD/HighestScore/Box/Current"]
+margin_left = 285.0
+margin_right = 365.0
+margin_bottom = 161.0
+rect_min_size = Vector2( 80, 0 )
+custom_styles/separator = SubResource( 10 )
+
+[node name="Clicks" type="VBoxContainer" parent="HUD/HighestScore/Box/Current"]
+margin_left = 369.0
+margin_right = 503.0
+margin_bottom = 161.0
+
+[node name="Label" type="Label" parent="HUD/HighestScore/Box/Current/Clicks"]
+margin_right = 134.0
+margin_bottom = 60.0
+theme = ExtResource( 5 )
+text = "Clicks"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Value" type="Label" parent="HUD/HighestScore/Box/Current/Clicks"]
+margin_top = 64.0
+margin_right = 134.0
+margin_bottom = 161.0
 theme = ExtResource( 5 )
 custom_colors/font_color = Color( 0.427451, 0.796078, 0.576471, 1 )
 custom_constants/shadow_offset_x = 1
@@ -405,25 +460,85 @@ __meta__ = {
 }
 
 [node name="HSeparator" type="HSeparator" parent="HUD/HighestScore/Box"]
-margin_top = 254.0
+margin_top = 215.0
 margin_right = 664.0
-margin_bottom = 258.0
+margin_bottom = 219.0
 
-[node name="Best" type="Label" parent="HUD/HighestScore/Box"]
-margin_top = 262.0
+[node name="LabelBest" type="Label" parent="HUD/HighestScore/Box"]
+margin_top = 223.0
 margin_right = 664.0
-margin_bottom = 322.0
+margin_bottom = 296.0
 theme = ExtResource( 5 )
+custom_fonts/font = SubResource( 11 )
 text = "Best"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HighestScore" type="Label" parent="HUD/HighestScore/Box"]
-margin_top = 326.0
+[node name="Best" type="HBoxContainer" parent="HUD/HighestScore/Box"]
+margin_top = 300.0
 margin_right = 664.0
-margin_bottom = 423.0
+margin_bottom = 461.0
+alignment = 1
+
+[node name="Score" type="VBoxContainer" parent="HUD/HighestScore/Box/Best"]
+margin_left = 160.0
+margin_right = 281.0
+margin_bottom = 161.0
+
+[node name="Label" type="Label" parent="HUD/HighestScore/Box/Best/Score"]
+margin_right = 121.0
+margin_bottom = 60.0
+theme = ExtResource( 5 )
+text = "Score"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Value" type="Label" parent="HUD/HighestScore/Box/Best/Score"]
+margin_top = 64.0
+margin_right = 121.0
+margin_bottom = 161.0
+theme = ExtResource( 5 )
+custom_colors/font_color = Color( 0.427451, 0.796078, 0.576471, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+custom_constants/shadow_as_outline = 0
+custom_fonts/font = SubResource( 3 )
+text = "0"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VSeparator" type="VSeparator" parent="HUD/HighestScore/Box/Best"]
+margin_left = 285.0
+margin_right = 365.0
+margin_bottom = 161.0
+rect_min_size = Vector2( 80, 0 )
+custom_styles/separator = SubResource( 10 )
+
+[node name="Clicks" type="VBoxContainer" parent="HUD/HighestScore/Box/Best"]
+margin_left = 369.0
+margin_right = 503.0
+margin_bottom = 161.0
+
+[node name="Label" type="Label" parent="HUD/HighestScore/Box/Best/Clicks"]
+margin_right = 134.0
+margin_bottom = 60.0
+theme = ExtResource( 5 )
+text = "Clicks"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Value" type="Label" parent="HUD/HighestScore/Box/Best/Clicks"]
+margin_top = 64.0
+margin_right = 134.0
+margin_bottom = 161.0
 theme = ExtResource( 5 )
 custom_colors/font_color = Color( 0.427451, 0.796078, 0.576471, 1 )
 custom_constants/shadow_offset_x = 1

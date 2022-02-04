@@ -14,9 +14,9 @@ func _ready():
 	medium_score.text = str(GameManager.get_highscore(1))
 	hard_score.text = str(GameManager.get_highscore(2))
 	
-	easy_clicks.text = str(GameManager.get_click_count(0))
-	medium_clicks.text = str(GameManager.get_click_count(1))
-	hard_clicks.text = str(GameManager.get_click_count(2))
+	easy_clicks.text = GameManager.get_click_count_str(0)
+	medium_clicks.text = GameManager.get_click_count_str(1)
+	hard_clicks.text = GameManager.get_click_count_str(2)
 	
 
 
