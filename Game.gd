@@ -5,6 +5,9 @@ extends Node2D
 
 export (int) var time = 60
 export (int) var grid_id = 1
+export (int) var width = 0
+export (int) var height = 0
+export (float) var grid_scale = 1.5
 
 onready var timer = $Timer
 onready var show_go_timer = $ShowGoTimer
@@ -31,6 +34,9 @@ func initialize_game():
 
 
 func _ready():
+	grid.width = width
+	grid.height = height
+	grid.scale = Vector2(grid_scale, grid_scale)
 	initialize_game()
 	var tween = Tween.new()
 	add_child(tween)

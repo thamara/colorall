@@ -51,12 +51,13 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_vertical_guides_": [ 320.0, 32.0 ]
 }
+width = 12
+height = 9
 
 [node name="Background" parent="." instance=ExtResource( 3 )]
 
 [node name="Grid" parent="." instance=ExtResource( 4 )]
 position = Vector2( 320, 64 )
-scale = Vector2( 1.5, 1.5 )
 width = 12
 height = 9
 
@@ -338,7 +339,6 @@ __meta__ = {
 }
 
 [node name="HighestScore" type="Control" parent="HUD"]
-visible = false
 margin_left = -15.0
 margin_top = 9.0
 margin_right = 25.0
