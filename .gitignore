@@ -1,10 +1,10 @@
 # Godot-specific ignores
-.import/
-export.cfg
+colorall/.import/
+colorall/export.cfg
 
 # Imported translations (automatically generated from CSV files)
 *.translation
 
 # Mono-specific ignores
-.mono/
-data_*/
+colorall/.mono/
+colorall/data_*/
