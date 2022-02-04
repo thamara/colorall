@@ -35,6 +35,7 @@ func _on_Btn_pressed(extra_arg):
 		game.width = 14
 		game.height = 11
 		game.grid_scale = 1.2
+		game.click_cooldown = 0.5
 
 	get_tree().get_root().add_child(game)
 	queue_free()

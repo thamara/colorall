@@ -141,9 +141,9 @@ __meta__ = {
 
 [node name="TimerLabel" type="Label" parent="HUD"]
 margin_left = 77.0
-margin_top = 330.0
+margin_top = 348.0
 margin_right = 220.0
-margin_bottom = 390.0
+margin_bottom = 408.0
 theme = ExtResource( 5 )
 text = "01:00.0"
 align = 1
@@ -182,9 +182,9 @@ __meta__ = {
 
 [node name="ScoreLabel" type="Label" parent="HUD"]
 margin_left = 37.0
-margin_top = 253.0
+margin_top = 271.0
 margin_right = 133.0
-margin_bottom = 313.0
+margin_bottom = 331.0
 theme = ExtResource( 5 )
 custom_fonts/font = SubResource( 4 )
 text = "1"
@@ -195,9 +195,9 @@ __meta__ = {
 
 [node name="Minus" type="Label" parent="HUD"]
 margin_left = 103.0
-margin_top = 255.0
+margin_top = 273.0
 margin_right = 199.0
-margin_bottom = 315.0
+margin_bottom = 333.0
 theme = ExtResource( 5 )
 text = "-"
 align = 1
@@ -207,9 +207,9 @@ __meta__ = {
 
 [node name="Equal1" type="Label" parent="HUD"]
 margin_left = 203.0
-margin_top = 323.0
+margin_top = 341.0
 margin_right = 299.0
-margin_bottom = 383.0
+margin_bottom = 401.0
 theme = ExtResource( 5 )
 text = "-"
 align = 1
@@ -219,9 +219,9 @@ __meta__ = {
 
 [node name="Equal2" type="Label" parent="HUD"]
 margin_left = 203.0
-margin_top = 331.0
+margin_top = 349.0
 margin_right = 299.0
-margin_bottom = 391.0
+margin_bottom = 409.0
 theme = ExtResource( 5 )
 text = "-"
 align = 1
@@ -231,9 +231,9 @@ __meta__ = {
 
 [node name="Multiplier" type="Label" parent="HUD"]
 margin_left = 5.0
-margin_top = 336.0
+margin_top = 354.0
 margin_right = 101.0
-margin_bottom = 396.0
+margin_bottom = 414.0
 theme = ExtResource( 5 )
 custom_fonts/font = SubResource( 5 )
 text = "X"
@@ -244,9 +244,9 @@ __meta__ = {
 
 [node name="Parenthesis1" type="Label" parent="HUD"]
 margin_left = -16.0
-margin_top = 258.0
+margin_top = 276.0
 margin_right = 80.0
-margin_bottom = 318.0
+margin_bottom = 336.0
 theme = ExtResource( 5 )
 custom_fonts/font = SubResource( 5 )
 text = "("
@@ -270,9 +270,9 @@ __meta__ = {
 
 [node name="PenaltyLabel" type="Label" parent="HUD"]
 margin_left = 169.0
-margin_top = 253.0
+margin_top = 271.0
 margin_right = 265.0
-margin_bottom = 313.0
+margin_bottom = 331.0
 theme = ExtResource( 5 )
 custom_fonts/font = SubResource( 4 )
 text = "0"
@@ -285,12 +285,12 @@ __meta__ = {
 position = Vector2( 117, 118 )
 
 [node name="Score1" type="Sprite" parent="HUD/ScoreBoxes"]
-position = Vector2( -25, 145 )
+position = Vector2( -25, 163 )
 scale = Vector2( 0.6, 0.6 )
 texture = ExtResource( 9 )
 
 [node name="Score2" type="Sprite" parent="HUD/ScoreBoxes"]
-position = Vector2( 107, 145 )
+position = Vector2( 107, 163 )
 scale = Vector2( 0.6, 0.6 )
 texture = ExtResource( 8 )
 

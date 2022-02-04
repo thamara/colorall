@@ -8,6 +8,7 @@ export (int) var grid_id = 1
 export (int) var width = 12
 export (int) var height = 9
 export (float) var grid_scale = 1.5
+export (float) var click_cooldown = 1
 
 onready var timer = $Timer
 onready var show_go_timer = $ShowGoTimer
@@ -39,6 +40,7 @@ func _ready():
 	grid.height = height
 	grid_control.rect_scale = Vector2(grid_scale, grid_scale)
 	grid_control.rect_size = Vector2(648, 504)
+	click_timer.wait_time = click_cooldown
 	initialize_game()
 	var tween = Tween.new()
 	add_child(tween)
