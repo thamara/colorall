@@ -2,7 +2,6 @@ on:
   push:
     branches:
       - main
-
 jobs:
   export_game:
     runs-on: ubuntu-latest
