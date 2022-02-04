@@ -45,7 +45,6 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_vertical_guides_": [ 320.0, 32.0 ]
 }
-time = 20
 
 [node name="Background" parent="." instance=ExtResource( 3 )]
 
