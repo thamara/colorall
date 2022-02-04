@@ -2,8 +2,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'WebClock/**'
 
 jobs:
   export_game:
