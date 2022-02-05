@@ -71,7 +71,8 @@ func grid_to_world(i, j):
 func create_piece_at(i, j):
 	if all_pieces[i][j]:
 		return
-	var rand_tile = GameManager.tiles[floor(rand_range(0, len(GameManager.tiles)))]
+	var tile_number = floor(rand_range(0, len(GameManager.tiles)))
+	var rand_tile = GameManager.tiles[tile_number]
 	var new_tile = rand_tile[1].instance()
 	if i == 0 && j == 0:
 		new_tile.show_glow()
@@ -153,10 +154,10 @@ func world_to_grid(pos):
 	return map.world_to_map(pos) - Vector2(offset_w, offset_h)
 
 
-func match_and_color():
+func match_and_color(color_selected):
 	find_matches(Vector2(0, 0))
 	for piece in pieces_to_color:
-		piece.set_color(GameManager.EnumToName[GameManager.color_selected])
+		piece.set_color(color_selected)
 	pieces_to_color = []
 	
 	# Update Score
@@ -175,7 +176,7 @@ func run_game():
 	if GameManager.state == GameManager.State.Wait:
 		return
 	GameManager.state = GameManager.State.Wait
-	match_and_color()
+	match_and_color(GameManager.EnumToName[GameManager.color_selected])
 	GameManager.click_count += 1
 
 
@@ -195,7 +196,8 @@ func new_game():
 	
 	initialize_game()
 	place_pieces()
-	match_and_color()
+	
+	match_and_color(all_pieces[0][0].color_name)
 
 
 func stop_game():

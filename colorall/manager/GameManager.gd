@@ -184,7 +184,6 @@ func report_game_over(grid_id, time_left):
 
 
 func report_first_and_last_colors(grid_id, first, last):
-	print('first: ', first, ' last: ', last)
 	if first != "" && first == last && !user_achievements[Achievements.FullCycle]["achieved"][grid_id]:
 		user_achievements[Achievements.FullCycle]["achieved"][grid_id] = true
 		save_achievements()
