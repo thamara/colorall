@@ -29,6 +29,13 @@ const achievements_template = {
 	},
 }
 
+const score_template = {
+	-1: {"score": 0, "clicks": -1, "num_times": 0},
+	0: {"score": 0, "clicks": -1, "num_times": 0},
+	1: {"score": 0, "clicks": -1, "num_times": 0},
+	2: {"score": 0, "clicks": -1, "num_times": 0},
+}
+
 var user_achievements = achievements_template
 
 func get_achievement(id):
@@ -51,7 +58,7 @@ enum State { Wait, Ready }
 var color_selected = Colors.Black
 var score = 0
 var final_score = 0
-var best_score = {}
+var best_score = score_template
 var click_count = 0
 var audio_volume = 1 setget set_audio_volume
 var state = State.Wait
@@ -141,8 +148,9 @@ func load_highscore():
 		save_data.open(SAVE_FILE_PATH, File.READ)
 		best_score = save_data.get_var()
 		save_data.close()
-	if !best_score:
-		best_score = {"score": 0, "clicks": -1, "num_times": 0}
+	else:
+		best_score = score_template
+		save_best_score()
 
 
 func number_to_color(n):
@@ -223,6 +231,8 @@ func report_game_over(grid_id, time_left):
 
 
 func report_first_and_last_colors(grid_id, first, last):
+	if grid_id < 0:
+		return
 	if first != "" && first == last && !user_achievements[Achievements.FullCycle]["achieved"][grid_id]:
 		user_achievements[Achievements.FullCycle]["achieved"][grid_id] = true
 		save_achievements()
@@ -230,10 +240,12 @@ func report_first_and_last_colors(grid_id, first, last):
 
 
 func report_highscore(grid_id, score):
+	if grid_id < 0:
+		return
 	if !user_achievements[Achievements.BeatTheDev]["achieved"][grid_id]:
 		var beat = false
 		if grid_id == 0:
-			beat = score > 200
+			beat = score > 1370
 		elif grid_id == 1:
 			beat = score > 1193
 		elif grid_id == 2:
@@ -245,6 +257,8 @@ func report_highscore(grid_id, score):
 
 
 func report_color_clicks(grid_id, click_per_color):
+	if grid_id < 0:
+		return
 	if user_achievements[Achievements.SavingMuch]["achieved"][grid_id]:
 		return
 

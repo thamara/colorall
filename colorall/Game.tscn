@@ -788,6 +788,8 @@ margin_right = 942.32
 margin_bottom = 523.0
 text = "Next"
 
+[node name="BackBtn" parent="Tutorial" instance=ExtResource( 15 )]
+
 [node name="Achievements" parent="." instance=ExtResource( 18 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
