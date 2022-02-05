@@ -1,6 +1,6 @@
 extends Node
 
-enum Achievements { SoClose = 0, FullCycle }
+enum Achievements { SoClose = 0, FullCycle, BeatTheDev }
 const achievements_template = {
 	Achievements.SoClose: { 
 		"name": "Soooo close!", 
@@ -12,11 +12,11 @@ const achievements_template = {
 		"description": "Complete a level where the last color is the same as the color of your starting blob.",
 		"achieved": {0: false, 1: false, 2: false}
 	},
-}
-
-const IdToAchievement = {
-	0: Achievements.SoClose,
-	1: Achievements.FullCycle,
+	Achievements.BeatTheDev: { 
+		"name": "Beat the Dev", 
+		"description": "Get a score higher than the developer of the game (Easy: 1370, Medium: 1193, Hard: 1777).",
+		"achieved": {0: false, 1: false, 2: false}
+	},
 }
 
 var user_achievements = achievements_template
@@ -25,6 +25,7 @@ func get_achievement(id):
 	match id:
 		0: return user_achievements[Achievements.SoClose]
 		1: return user_achievements[Achievements.FullCycle]
+		2: return user_achievements[Achievements.BeatTheDev]
 
 
 const SAVE_FILE_PATH = "user://savedata_v2.save"
@@ -100,6 +101,7 @@ func get_click_count_str(grid_id):
 
 
 func save_highscore(grid_id, value, clicks):
+	report_highscore(grid_id, value)
 	var new_highscore = false
 	if !(grid_id in best_score):
 		best_score[grid_id] = {"score": 0, "clicks": -1}
@@ -199,8 +201,21 @@ func report_first_and_last_colors(grid_id, first, last):
 		user_achievements[Achievements.FullCycle]["achieved"][grid_id] = true
 		save_achievements()
 		achievement_notifier.push_achievement(user_achievements[Achievements.FullCycle]["name"])
-	
 
+
+func report_highscore(grid_id, score):
+	if !user_achievements[Achievements.BeatTheDev]["achieved"][grid_id]:
+		var beat = false
+		if grid_id == 0:
+			beat = score > 200
+		elif grid_id == 1:
+			beat = score > 1193
+		elif grid_id == 2:
+			beat = score > 1777
+		if beat:
+			user_achievements[Achievements.BeatTheDev]["achieved"][grid_id] = true
+			save_achievements()
+			achievement_notifier.push_achievement(user_achievements[Achievements.BeatTheDev]["name"])
 
 func _ready():
 	MusicManager.play()
