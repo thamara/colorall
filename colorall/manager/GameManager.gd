@@ -1,6 +1,18 @@
 extends Node
 
+enum Achievements { SoClose = 0 }
+const achievements_template = {
+	Achievements.SoClose: { 
+		"name": "Soooo close!", 
+		"description": "Complete a level with less than 1 second remaining.",
+		"achieved": {0: false, 1: false, 2: false}
+	},
+}
+
+var user_achievements = achievements_template
+
 const SAVE_FILE_PATH = "user://savedata_v2.save"
+const ACHIEVEMENTS_FILE_PATH = "user://achievements.save"
 const AUDIO_FILE_PATH = "user://audio_level.save"
 
 enum Colors { Black = 0, White, Red, Yellow, Blue, Purple, Green, Orange}
@@ -50,57 +62,9 @@ const tiles = [
 	["Orange", preload("res://tiles/Orange.tscn")],
 ]
 
-var cnt = {
-		Colors.Black: 0,
-		Colors.White: 0,
-		Colors.Red: 0,
-		Colors.Yellow: 0,
-		Colors.Blue: 0,
-		Colors.Purple: 0,
-		Colors.Green: 0,
-		Colors.Orange: 0,
-}
-
-var cnt_ui = {
-	Colors.Black: null,
-	Colors.White: null,
-	Colors.Red: null,
-	Colors.Yellow: null,
-	Colors.Blue: null,
-	Colors.Purple: null,
-	Colors.Green: null,
-	Colors.Orange: null,
-}
-
-var possible_orders = [
-	{
-		"value": 10,
-		"items": [
-			["Purple", 1,],
-			["Blue", 1],
-			["Red", 1]
-		],
-	},
-	{
-		"value": 100,
-		"items": [
-			["Red", 1,],
-			["Yellow", 1],
-			["Purple", 1]
-		],
-	},
-	{
-		"value": 100,
-		"items": [
-			["Orange", 1,],
-		],
-	},
-]
-var order_it = 0
-
 signal counter_changed
 
-var order = null
+
 
 func get_highscore(grid_id):
 	if grid_id in best_score:
@@ -165,61 +129,6 @@ func set_color(n):
 	color_selected = number_to_color(n)
 
 
-func reset_cnt():
-	for color in cnt:
-		cnt[color] = 0
-
-
-func set_color_val(color, val):
-	cnt[color] = val
-	cnt_ui[color].text = str(cnt[color])
-	emit_signal("counter_changed")
-
-
-func incr_color_cnt(color_name):
-	var color = ColorNameToEnum[color_name]
-	set_color_val(color, cnt[color] + 1)
-	if can_complete_current_order():
-		order.can_complete_order()
-
-
-func register_cnt_ui(ui):
-	pass
-
-
-func register_order_ui(ui):
-	order = ui
-
-
-func can_complete_order(orders):
-	var can_complete = true
-	for item in orders["items"]:
-		var color = ColorNameToEnum[item[0]]
-		var amount = item[1]
-		var current_color_amout = cnt[color]
-		if current_color_amout < amount:
-			can_complete = false
-	return can_complete
-
-
-func can_complete_current_order():
-	if !order:
-		return false
-	var current_order = order.orders
-	return can_complete_order(current_order)
-
-
-func complete_order(orders):
-	for item in orders["items"]:
-		var color = ColorNameToEnum[item[0]]
-		var amount = item[1]
-		set_color_val(color, cnt[color] - amount)
-	if order_it >= len(possible_orders):
-		order_it = 0
-	order.set_orders(possible_orders[order_it])
-	order_it += 1
-
-
 func load_audio_volume():
 	var save_data = File.new()
 	if save_data.file_exists(AUDIO_FILE_PATH):
@@ -240,7 +149,44 @@ func register_achievement_notifier(v):
 	achievement_notifier = v
 
 
+func save_achievements():
+	var save_data = File.new()
+	save_data.open(ACHIEVEMENTS_FILE_PATH, File.WRITE)
+	save_data.store_var(user_achievements)
+	save_data.close()
+
+
+func load_achievements():
+	var save_data = File.new()
+	if save_data.file_exists(ACHIEVEMENTS_FILE_PATH):
+		save_data.open(ACHIEVEMENTS_FILE_PATH, File.READ)
+		user_achievements = save_data.get_var()
+		save_data.close()
+	else:
+		user_achievements = achievements_template
+		save_achievements()
+
+
+func report_game_over(grid_id, time_left):
+	# Do not count achievements for tutorial
+	if grid_id < 0:
+		return
+	if time_left < 1:
+		return
+#		const achievements_template = {
+#	Achievements.SoClose: { 
+#		"name": "Soooo close!", 
+#		"description": "Complete a level with less than 1 second remaining.",
+#		"achieved": {0: false, 1: false, 2: false}
+#	},
+#}
+	user_achievements[Achievements.SoClose]["achieved"][grid_id] = true
+	save_achievements()
+	achievement_notifier.push_achievement(user_achievements[Achievements.SoClose]["name"])
+
+
 func _ready():
 	MusicManager.play()
 	load_highscore()
 	load_audio_volume()
+	load_achievements()

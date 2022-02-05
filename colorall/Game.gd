@@ -123,7 +123,9 @@ func process_game_over():
 
 
 func _on_Grid_game_over():
+	var time_left = timer.time_left
 	timer.stop()
+	GameManager.report_game_over(grid_id, time_left)
 	show_go_timer.start()
 	$ProgressBarColor.stop_all()
 	timer_bar.visible = false;

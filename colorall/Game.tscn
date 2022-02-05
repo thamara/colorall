@@ -67,6 +67,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_horizontal_guides_": [ 208.0 ]
 }
+time = 20
 width = 3
 height = 3
 grid_scale = 3.0
