@@ -54,10 +54,6 @@ func _on_Animation1_timeout():
 	_create_timer()
 	yield(self,"timer_end")
 	
-	$TileMap/Tile20.show_glow()
-	_create_timer()
-	yield(self,"timer_end")
-	
 	$TileMap/Tile01.set_color("Black")
 	_create_timer()
 	yield(self,"timer_end")
@@ -67,6 +63,10 @@ func _on_Animation1_timeout():
 	yield(self,"timer_end")
 	
 	$TileMap/Tile12.set_color("Black")
+	_create_timer()
+	yield(self,"timer_end")
+	
+	$TileMap/Tile20.show_glow()
 	_create_timer()
 	yield(self,"timer_end")
 	
@@ -104,14 +104,6 @@ func _on_Animation1_timeout():
 	_create_timer()
 	yield(self,"timer_end")
 	
-	$TileMap/Tile11.show_glow()
-	_create_timer()
-	yield(self,"timer_end")
-	
-	$TileMap/Tile21.show_glow()
-	_create_timer()
-	yield(self,"timer_end")
-	
 	$TileMap/Tile02.set_color("Yellow")
 	_create_timer()
 	yield(self,"timer_end")
@@ -120,19 +112,27 @@ func _on_Animation1_timeout():
 	_create_timer()
 	yield(self,"timer_end")
 	
-	$TileMap/Tile22.show_glow()
-	_create_timer()
-	yield(self,"timer_end")
-	
-	$TileMap/Tile03.show_glow()
-	_create_timer()
-	yield(self,"timer_end")
-	
 	$TileMap/Tile13.set_color("Yellow")
 	_create_timer()
 	yield(self,"timer_end")
 	
 	$TileMap/Tile23.set_color("Yellow")
+	_create_timer()
+	yield(self,"timer_end")
+	
+	$TileMap/Tile11.show_glow()
+	_create_timer()
+	yield(self,"timer_end")
+	
+	$TileMap/Tile21.show_glow()
+	_create_timer()
+	yield(self,"timer_end")
+	
+	$TileMap/Tile22.show_glow()
+	_create_timer()
+	yield(self,"timer_end")
+	
+	$TileMap/Tile03.show_glow()
 	_create_timer()
 	yield(self,"timer_end")
 	
