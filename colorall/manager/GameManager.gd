@@ -36,6 +36,8 @@ const score_template = {
 	2: {"score": 0, "clicks": -1, "num_times": 0},
 }
 
+var use_symbols = false
+
 var user_achievements = achievements_template
 
 func get_achievement(id):

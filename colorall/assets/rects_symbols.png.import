@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/rects.png-e9b9f0f7151c1101772a7f5d80ee7183.stex"
+path="res://.import/rects_symbols.png-4997e51fb0c8aed093e9725cc1e714c5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/rects.png"
-dest_files=[ "res://.import/rects.png-e9b9f0f7151c1101772a7f5d80ee7183.stex" ]
+source_file="res://assets/rects_symbols.png"
+dest_files=[ "res://.import/rects_symbols.png-4997e51fb0c8aed093e9725cc1e714c5.stex" ]
 
 [params]
 

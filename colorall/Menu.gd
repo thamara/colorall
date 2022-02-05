@@ -32,7 +32,7 @@ func _create_timer():
 
 func _ready():
 	$Animation1.start()
-	pass # Replace with function body.
+	$EnableSymbols.pressed = GameManager.use_symbols
 
 
 func _on_Animation1_timeout():
@@ -184,3 +184,11 @@ func _on_AnimationSetup_timeout():
 
 func _on_Button_pressed():
 	get_tree().change_scene("res://LevelSelection.tscn")
+
+
+func _on_EnableSymbols_toggled(button_pressed):
+	GameManager.use_symbols = button_pressed
+	print(GameManager.use_symbols)
+	for node in $TileMap.get_children():
+		node.refresh_texture()
+	$ColorSelection.refresh_texture()

@@ -21,7 +21,16 @@ onready var tween = $Tween
 
 var matched = false
 
+
+func refresh_texture():
+	if GameManager.use_symbols:
+		sprite.texture = preload("res://assets/rects_symbols.png")
+	else:
+		sprite.texture = preload("res://assets/rects.png")
+
+
 func _ready():
+	refresh_texture()
 	set_color(color_name)
 	tween.interpolate_property($Sprite, "scale", Vector2(0.2, 0.2), Vector2(0.5, 0.5), 0.3)
 	tween.start()

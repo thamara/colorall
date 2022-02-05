@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/rects.png-e9b9f0f7151c1101772a7f5d80ee7183.stex"
+path="res://.import/check_box.png-5faf2b1d05c2c8d83f6486471fff3d5e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/rects.png"
-dest_files=[ "res://.import/rects.png-e9b9f0f7151c1101772a7f5d80ee7183.stex" ]
+source_file="res://assets/check_box.png"
+dest_files=[ "res://.import/check_box.png-5faf2b1d05c2c8d83f6486471fff3d5e.stex" ]
 
 [params]
 
