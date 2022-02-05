@@ -70,9 +70,9 @@ __meta__ = {
 
 [node name="Credits" type="Label" parent="Control"]
 margin_left = 9.0
-margin_top = 515.0
+margin_top = 521.0
 margin_right = 423.0
-margin_bottom = 587.0
+margin_bottom = 593.0
 theme = ExtResource( 2 )
 custom_fonts/font = SubResource( 3 )
 text = "A game by Thamara Andrade (thamara.dev/)
