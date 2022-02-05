@@ -1,10 +1,15 @@
 extends Node
 
-enum Achievements { SoClose = 0 }
+enum Achievements { SoClose = 0, FullCycle }
 const achievements_template = {
 	Achievements.SoClose: { 
 		"name": "Soooo close!", 
 		"description": "Complete a level with less than 1 second remaining.",
+		"achieved": {0: false, 1: false, 2: false}
+	},
+	Achievements.FullCycle: { 
+		"name": "Full cycle", 
+		"description": "Complete a level where the last color is the same as the color of your starting blob.",
 		"achieved": {0: false, 1: false, 2: false}
 	},
 }
@@ -171,18 +176,20 @@ func report_game_over(grid_id, time_left):
 	# Do not count achievements for tutorial
 	if grid_id < 0:
 		return
-	if time_left < 1:
-		return
-#		const achievements_template = {
-#	Achievements.SoClose: { 
-#		"name": "Soooo close!", 
-#		"description": "Complete a level with less than 1 second remaining.",
-#		"achieved": {0: false, 1: false, 2: false}
-#	},
-#}
-	user_achievements[Achievements.SoClose]["achieved"][grid_id] = true
-	save_achievements()
-	achievement_notifier.push_achievement(user_achievements[Achievements.SoClose]["name"])
+	# So Close
+	if time_left <= 1 && !user_achievements[Achievements.SoClose]["achieved"][grid_id]:
+		user_achievements[Achievements.SoClose]["achieved"][grid_id] = true
+		save_achievements()
+		achievement_notifier.push_achievement(user_achievements[Achievements.SoClose]["name"])
+
+
+func report_first_and_last_colors(grid_id, first, last):
+	print('first: ', first, ' last: ', last)
+	if first != "" && first == last && !user_achievements[Achievements.FullCycle]["achieved"][grid_id]:
+		user_achievements[Achievements.FullCycle]["achieved"][grid_id] = true
+		save_achievements()
+		achievement_notifier.push_achievement(user_achievements[Achievements.FullCycle]["name"])
+	
 
 
 func _ready():

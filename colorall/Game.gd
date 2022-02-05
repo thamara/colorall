@@ -126,6 +126,7 @@ func _on_Grid_game_over():
 	var time_left = timer.time_left
 	timer.stop()
 	GameManager.report_game_over(grid_id, time_left)
+	GameManager.report_first_and_last_colors(grid_id, grid.starting_color, grid.last_color)
 	show_go_timer.start()
 	$ProgressBarColor.stop_all()
 	timer_bar.visible = false;

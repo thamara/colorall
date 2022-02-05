@@ -8,6 +8,9 @@ export (int) var offset_h = 0
 var all_pieces = []
 var pieces_to_color = []
 
+var starting_color = ""
+var last_color = ""
+
 onready var map = $TileMap
 onready var right_music = $Right
 
@@ -75,6 +78,9 @@ func create_piece_at(i, j):
 	add_child(new_tile)
 	new_tile.position = grid_to_world(i, j)
 	all_pieces[i][j] = new_tile
+	if i == 0 && j == 0:
+		starting_color = new_tile.color_name
+		print('starting color is: ', starting_color)
 
 
 func is_a_match(p1, p2, p3):
@@ -159,6 +165,8 @@ func match_and_color():
 	GameManager.score = score
 	
 	if score == width * height:
+		last_color = all_pieces[0][0].color_name
+		print('last color is: ', last_color)
 		emit_signal("game_over")
 	
 	pieces_to_color = []
@@ -181,6 +189,9 @@ func new_game():
 	var y = (outside_control_size.y - grid_size.y)/2 + outside_control_position.y
 	global_position.x = x
 	global_position.y = y
+	
+	starting_color = ""
+	last_color = ""
 	
 	initialize_game()
 	place_pieces()
