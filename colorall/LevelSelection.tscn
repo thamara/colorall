@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Background.tscn" type="PackedScene" id=1]
 [ext_resource path="res://ColorSelectionCircle.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Game.tres" type="Theme" id=3]
 [ext_resource path="res://assets/SupermercadoOne-Regular.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://assets/menu_btn.wav" type="AudioStream" id=5]
 [ext_resource path="res://Button.tscn" type="PackedScene" id=6]
 [ext_resource path="res://LevelSelection.gd" type="Script" id=7]
 [ext_resource path="res://Menu.tscn" type="PackedScene" id=8]
@@ -28,6 +29,10 @@ font_data = ExtResource( 4 )
 size = 150
 font_data = ExtResource( 4 )
 
+[sub_resource type="DynamicFont" id=8]
+size = 28
+font_data = ExtResource( 4 )
+
 [node name="LevelSelection" type="Node2D"]
 script = ExtResource( 7 )
 
@@ -35,17 +40,18 @@ script = ExtResource( 7 )
 
 [node name="Box" type="HBoxContainer" parent="."]
 margin_left = 36.0
-margin_top = 234.0
-margin_right = 990.0
-margin_bottom = 581.0
+margin_top = 183.0
+margin_right = 1010.0
+margin_bottom = 530.0
 alignment = 1
 __meta__ = {
+"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
 [node name="TutorialBox" type="VBoxContainer" parent="Box"]
-margin_left = 57.0
-margin_right = 201.0
+margin_left = 67.0
+margin_right = 211.0
 margin_bottom = 347.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -105,14 +111,14 @@ __meta__ = {
 }
 
 [node name="VSeparator3" type="VSeparator" parent="Box"]
-margin_left = 205.0
-margin_right = 285.0
+margin_left = 215.0
+margin_right = 295.0
 margin_bottom = 347.0
 rect_min_size = Vector2( 80, 0 )
 
 [node name="EasyBox" type="VBoxContainer" parent="Box"]
-margin_left = 289.0
-margin_right = 433.0
+margin_left = 299.0
+margin_right = 443.0
 margin_bottom = 347.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -172,14 +178,14 @@ __meta__ = {
 }
 
 [node name="VSeparator" type="VSeparator" parent="Box"]
-margin_left = 437.0
-margin_right = 517.0
+margin_left = 447.0
+margin_right = 527.0
 margin_bottom = 347.0
 rect_min_size = Vector2( 80, 0 )
 
 [node name="MediumBox" type="VBoxContainer" parent="Box"]
-margin_left = 521.0
-margin_right = 665.0
+margin_left = 531.0
+margin_right = 675.0
 margin_bottom = 347.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -239,8 +245,8 @@ __meta__ = {
 }
 
 [node name="VSeparator2" type="VSeparator" parent="Box"]
-margin_left = 669.0
-margin_right = 749.0
+margin_left = 679.0
+margin_right = 759.0
 margin_bottom = 347.0
 rect_min_size = Vector2( 80, 0 )
 __meta__ = {
@@ -248,8 +254,8 @@ __meta__ = {
 }
 
 [node name="HardBox" type="VBoxContainer" parent="Box"]
-margin_left = 753.0
-margin_right = 897.0
+margin_left = 763.0
+margin_right = 907.0
 margin_bottom = 347.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -346,7 +352,24 @@ margin_bottom = -5.0
 [node name="BackBtn" parent="." instance=ExtResource( 10 )]
 scene = ExtResource( 8 )
 
+[node name="AchievementsBtn" type="Button" parent="."]
+margin_left = 432.0
+margin_top = 546.0
+margin_right = 614.0
+margin_bottom = 587.0
+theme = ExtResource( 3 )
+custom_fonts/font = SubResource( 8 )
+text = "Achievements"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BackBtnAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+
 [connection signal="pressed" from="Box/TutorialBox/Btn" to="." method="_on_Btn_pressed" binds= [ -1 ]]
 [connection signal="pressed" from="Box/EasyBox/Btn" to="." method="_on_Btn_pressed" binds= [ 0 ]]
 [connection signal="pressed" from="Box/MediumBox/Btn" to="." method="_on_Btn_pressed" binds= [ 1 ]]
 [connection signal="pressed" from="Box/HardBox/Btn" to="." method="_on_Btn_pressed" binds= [ 2 ]]
+[connection signal="pressed" from="AchievementsBtn" to="." method="_on_AchievementsBtn_pressed"]
+[connection signal="finished" from="BackBtnAudio" to="." method="_on_BackBtnAudio_finished"]

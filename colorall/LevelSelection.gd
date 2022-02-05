@@ -66,3 +66,11 @@ func _on_Btn_pressed(extra_arg):
 	get_tree().get_root().add_child(game)
 	queue_free()
 
+
+func _on_AchievementsBtn_pressed():
+	$BackBtnAudio.play()
+
+
+func _on_BackBtnAudio_finished():
+	get_tree().change_scene("res://AchievementsScreen.tscn")
+	queue_free()
