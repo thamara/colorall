@@ -268,4 +268,3 @@ func _ready():
 	load_highscore()
 	load_audio_volume()
 	load_achievements()
-	print(user_achievements)
