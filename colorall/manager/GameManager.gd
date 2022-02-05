@@ -14,7 +14,7 @@ const achievements_template = {
 	},
 	Achievements.BeatTheDev: { 
 		"name": "Beat the Dev", 
-		"description": "Get a score higher than the developer of the game (Easy: 1370, Medium: 1193, Hard: 1777).",
+		"description": "Get a score higher than the developer of the game (Easy: 1370, Medium: 2411, Hard: 1777).",
 		"achieved": {0: false, 1: false, 2: false}
 	},
 	Achievements.SavingMuch: { 
@@ -247,7 +247,7 @@ func report_highscore(grid_id, score):
 		if grid_id == 0:
 			beat = score > 1370
 		elif grid_id == 1:
-			beat = score > 1193
+			beat = score > 2411
 		elif grid_id == 2:
 			beat = score > 1777
 		if beat:
