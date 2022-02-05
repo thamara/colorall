@@ -50,7 +50,7 @@ anchor_right = 1.0
 margin_bottom = 37.0
 theme = ExtResource( 2 )
 custom_fonts/font = SubResource( 2 )
-text = "Achiecement unlock"
+text = "Achievement unlock"
 align = 1
 
 [node name="Timer" type="Timer" parent="."]
