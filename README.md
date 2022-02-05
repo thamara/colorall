@@ -10,7 +10,7 @@ Your goal is to completely take over the grid with your blob in any color... but
 
 Challenge yourself and collect all the achievements!
 
-Play with the mouse directly on the browser at [itch.io]((https://thamara.itch.io/colorall)), or download the executable and run locally.
+Play with the mouse directly on the browser at [itch.io](https://thamara.itch.io/colorall), or download the executable and run locally.
 
 # Development
 
