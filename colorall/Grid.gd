@@ -81,7 +81,6 @@ func create_piece_at(i, j):
 	all_pieces[i][j] = new_tile
 	if i == 0 && j == 0:
 		starting_color = new_tile.color_name
-		print('starting color is: ', starting_color)
 
 
 func is_a_match(p1, p2, p3):
@@ -167,7 +166,6 @@ func match_and_color(color_selected):
 	
 	if score == width * height:
 		last_color = all_pieces[0][0].color_name
-		print('last color is: ', last_color)
 		emit_signal("game_over")
 	
 	pieces_to_color = []

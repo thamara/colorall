@@ -7,3 +7,5 @@ colorall/export.cfg
 # Mono-specific ignores
 colorall/.mono/
 colorall/data_*/
+
+venv/

@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/hex_grey.png" type="Texture" id=1]
+[ext_resource path="res://assets/hex_green.png" type="Texture" id=2]
+[ext_resource path="res://assets/SupermercadoOne-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Game.tres" type="Theme" id=4]
+[ext_resource path="res://Badge.gd" type="Script" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 3 )
+
+[node name="Badge" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -979.0
+margin_bottom = -555.0
+rect_min_size = Vector2( 45, 52 )
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+active = true
+
+[node name="Active" type="Sprite" parent="."]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Inactive" type="Sprite" parent="."]
+visible = false
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Label" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Easy"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}

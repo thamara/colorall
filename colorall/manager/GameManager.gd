@@ -14,7 +14,18 @@ const achievements_template = {
 	},
 }
 
+const IdToAchievement = {
+	0: Achievements.SoClose,
+	1: Achievements.FullCycle,
+}
+
 var user_achievements = achievements_template
+
+func get_achievement(id):
+	match id:
+		0: return user_achievements[Achievements.SoClose]
+		1: return user_achievements[Achievements.FullCycle]
+
 
 const SAVE_FILE_PATH = "user://savedata_v2.save"
 const ACHIEVEMENTS_FILE_PATH = "user://achievements.save"
