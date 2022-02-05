@@ -1,6 +1,6 @@
 extends Node
 
-enum Achievements { SoClose = 0, FullCycle, BeatTheDev }
+enum Achievements { SoClose = 0, FullCycle, BeatTheDev, SavingMuch }
 const achievements_template = {
 	Achievements.SoClose: { 
 		"name": "Soooo close!", 
@@ -17,6 +17,11 @@ const achievements_template = {
 		"description": "Get a score higher than the developer of the game (Easy: 1370, Medium: 1193, Hard: 1777).",
 		"achieved": {0: false, 1: false, 2: false}
 	},
+	Achievements.SavingMuch: { 
+		"name": "Saving much?!", 
+		"description": "Complete a level using at least one color only up to one time.",
+		"achieved": {0: false, 1: false, 2: false}
+	},
 }
 
 var user_achievements = achievements_template
@@ -26,6 +31,7 @@ func get_achievement(id):
 		0: return user_achievements[Achievements.SoClose]
 		1: return user_achievements[Achievements.FullCycle]
 		2: return user_achievements[Achievements.BeatTheDev]
+		3: return user_achievements[Achievements.SavingMuch]
 
 
 const SAVE_FILE_PATH = "user://savedata_v2.save"
@@ -190,7 +196,7 @@ func report_game_over(grid_id, time_left):
 	if grid_id < 0:
 		return
 	# So Close
-	if time_left <= 1 && !user_achievements[Achievements.SoClose]["achieved"][grid_id]:
+	if time_left != 0 && time_left <= 1 && !user_achievements[Achievements.SoClose]["achieved"][grid_id]:
 		user_achievements[Achievements.SoClose]["achieved"][grid_id] = true
 		save_achievements()
 		achievement_notifier.push_achievement(user_achievements[Achievements.SoClose]["name"])
@@ -216,6 +222,23 @@ func report_highscore(grid_id, score):
 			user_achievements[Achievements.BeatTheDev]["achieved"][grid_id] = true
 			save_achievements()
 			achievement_notifier.push_achievement(user_achievements[Achievements.BeatTheDev]["name"])
+
+
+func report_color_clicks(grid_id, click_per_color):
+	var beat = false
+	if len(click_per_color) < 8:
+		beat = true
+	else:
+		var colors_clicked_once = []
+		for i in click_per_color.keys():
+			if click_per_color[i] <= 1:
+				colors_clicked_once.append(i)
+		beat = len(colors_clicked_once) > 0
+	
+	if beat:
+		user_achievements[Achievements.SavingMuch]["achieved"][grid_id] = true
+		save_achievements()
+		achievement_notifier.push_achievement(user_achievements[Achievements.SavingMuch]["name"])
 
 func _ready():
 	MusicManager.play()

@@ -15,6 +15,7 @@ onready var map = $TileMap
 onready var right_music = $Right
 
 signal game_over
+signal win_game
 
 
 func place_pieces():
@@ -167,6 +168,7 @@ func match_and_color(color_selected):
 	if score == width * height:
 		last_color = all_pieces[0][0].color_name
 		emit_signal("game_over")
+		emit_signal("win_game")
 	
 	pieces_to_color = []
 

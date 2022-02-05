@@ -793,6 +793,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 
 [connection signal="game_over" from="GridControl/Grid" to="." method="_on_Grid_game_over"]
+[connection signal="win_game" from="GridControl/Grid" to="." method="_on_Grid_win_game"]
 [connection signal="input_event" from="HUD/StartBtn/Area2D" to="." method="_on_Area2D_input_event"]
 [connection signal="color_clicked" from="HUD/ColorSelection" to="." method="_on_ColorSelection_color_clicked"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

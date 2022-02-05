@@ -45,6 +45,9 @@ var tutorial_step = 0
 
 var re_use_grid = tutorial
 
+var color_counter = {}
+var time_left = 0
+
 func initialize_game():
 	timer_bar.value = time
 	timer_bar.max_value = time
@@ -81,7 +84,7 @@ func _get_time_str(time_in_secs):
 
 
 func update_score():
-	var time_left = timer.time_left
+	time_left = timer.time_left
 	timer_bar.value = time_left
 	timer_label.text = _get_time_str(time_left)
 	GameManager.final_score = floor((GameManager.score - GameManager.click_count) * max(time_left, 1))
@@ -103,6 +106,9 @@ func _on_ColorSelection_color_clicked():
 		grid.run_game()
 		score_label.text = str(GameManager.score)
 		penalty_label.text = str(GameManager.click_count)
+		if !GameManager.color_selected in color_counter:
+			color_counter[GameManager.color_selected] = 0
+		color_counter[GameManager.color_selected] += 1
 		if click_timer.is_stopped():
 			click_timer.start()
 			$Tween.interpolate_property(click_progress_bar, "value", 0, 100, click_cooldown)
@@ -123,10 +129,8 @@ func process_game_over():
 
 
 func _on_Grid_game_over():
-	var time_left = timer.time_left
+	time_left = timer.time_left
 	timer.stop()
-	GameManager.report_game_over(grid_id, time_left)
-	GameManager.report_first_and_last_colors(grid_id, grid.starting_color, grid.last_color)
 	show_go_timer.start()
 	$ProgressBarColor.stop_all()
 	timer_bar.visible = false;
@@ -137,6 +141,7 @@ func _on_Area2D_input_event(viewport, event, shape_idx):
 	if tutorial:
 		return
 	if (event is InputEventMouseButton && event.pressed):
+		color_counter = {}
 		start_btn.visible = false
 		$Select.play()
 		final_score_box.visible = false
@@ -177,3 +182,9 @@ func _on_Next_pressed():
 	tutorial_step += 1
 	tutorial_steps[tutorial_step].visible = true
 	
+
+
+func _on_Grid_win_game():
+	GameManager.report_color_clicks(grid_id, color_counter)
+	GameManager.report_game_over(grid_id, time_left)
+	GameManager.report_first_and_last_colors(grid_id, grid.starting_color, grid.last_color)
