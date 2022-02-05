@@ -1,6 +1,6 @@
 extends Node
 
-enum Achievements { SoClose = 0, FullCycle, BeatTheDev, SavingMuch }
+enum Achievements { SoClose = 0, FullCycle, BeatTheDev, SavingMuch, TenXEveryWhere }
 const achievements_template = {
 	Achievements.SoClose: { 
 		"name": "Soooo close!", 
@@ -22,6 +22,11 @@ const achievements_template = {
 		"description": "Complete a level using at least one color only up to one time.",
 		"achieved": {0: false, 1: false, 2: false}
 	},
+	Achievements.TenXEveryWhere: { 
+		"name": "10x everywhere!", 
+		"description": "Play a level at leat 10 times. Winning is good, but playing is what counts.",
+		"achieved": {0: false, 1: false, 2: false}
+	},
 }
 
 var user_achievements = achievements_template
@@ -32,9 +37,10 @@ func get_achievement(id):
 		1: return user_achievements[Achievements.FullCycle]
 		2: return user_achievements[Achievements.BeatTheDev]
 		3: return user_achievements[Achievements.SavingMuch]
+		4: return user_achievements[Achievements.TenXEveryWhere]
 
 
-const SAVE_FILE_PATH = "user://savedata_v2.save"
+const SAVE_FILE_PATH = "user://savedata.save"
 const ACHIEVEMENTS_FILE_PATH = "user://achievements.save"
 const AUDIO_FILE_PATH = "user://audio_level.save"
 
@@ -106,21 +112,25 @@ func get_click_count_str(grid_id):
 	return "-"
 
 
+func save_best_score():
+	var save_data = File.new()
+	save_data.open(SAVE_FILE_PATH, File.WRITE)
+	save_data.store_var(best_score)
+	save_data.close()
+
+
 func save_highscore(grid_id, value, clicks):
 	report_highscore(grid_id, value)
 	var new_highscore = false
 	if !(grid_id in best_score):
-		best_score[grid_id] = {"score": 0, "clicks": -1}
+		best_score[grid_id] = {"score": 0, "clicks": -1, "num_times": 0}
 	if best_score[grid_id]["score"] < value:
 		best_score[grid_id]["score"] = value
 		new_highscore = true
 	if best_score[grid_id]["clicks"] > clicks || best_score[grid_id]["clicks"] == -1:
 		best_score[grid_id]["clicks"] = clicks
 
-	var save_data = File.new()
-	save_data.open(SAVE_FILE_PATH, File.WRITE)
-	save_data.store_var(best_score)
-	save_data.close()
+	save_best_score()
 	
 	return new_highscore
 
@@ -132,7 +142,7 @@ func load_highscore():
 		best_score = save_data.get_var()
 		save_data.close()
 	if !best_score:
-		best_score = {"score": 0, "clicks": -1}
+		best_score = {"score": 0, "clicks": -1, "num_times": 0}
 
 
 func number_to_color(n):
@@ -195,6 +205,16 @@ func report_game_over(grid_id, time_left):
 	# Do not count achievements for tutorial
 	if grid_id < 0:
 		return
+		
+	# TenXEveryWhere
+	if grid_id in best_score:
+		if "num_times" in best_score[grid_id]:
+			best_score[grid_id]["num_times"] += 1
+			save_best_score()
+	if !user_achievements[Achievements.TenXEveryWhere]["achieved"][grid_id] && best_score[grid_id]["num_times"] >= 10:
+		user_achievements[Achievements.TenXEveryWhere]["achieved"][grid_id] = true
+		save_achievements()
+		achievement_notifier.push_achievement(user_achievements[Achievements.TenXEveryWhere]["name"])
 	# So Close
 	if time_left != 0 && time_left <= 1 && !user_achievements[Achievements.SoClose]["achieved"][grid_id]:
 		user_achievements[Achievements.SoClose]["achieved"][grid_id] = true
@@ -225,6 +245,9 @@ func report_highscore(grid_id, score):
 
 
 func report_color_clicks(grid_id, click_per_color):
+	if user_achievements[Achievements.SavingMuch]["achieved"][grid_id]:
+		return
+
 	var beat = false
 	if len(click_per_color) < 8:
 		beat = true
@@ -245,3 +268,4 @@ func _ready():
 	load_highscore()
 	load_audio_volume()
 	load_achievements()
+	print(user_achievements)
